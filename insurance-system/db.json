@@ -1,0 +1,65 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Ishaan Patel",
+      "email": "ishaan@gmail.com",
+      "phoneNumber": "9876543210",
+      "password": "password123",
+      "role": "CUSTOMER",
+
+      "address": {
+        "street": "123 Green Park",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "pincode": "380001"
+      },
+
+      "nominees": [
+        {
+          "name": "Riya Patel",
+          "relationship": "Sister",
+          "phoneNumber": "9876500001"
+        }
+      ],
+
+      "preferences": {
+        "emailNotifications": true,
+        "smsNotifications": false,
+        "premiumReminders": true
+      }
+    },
+
+    {
+      "id": 2,
+      "fullName": "Admin User",
+      "email": "admin@gmail.com",
+      "phoneNumber": "9999999999",
+      "password": "admin123",
+      "role": "ADMIN",
+
+      "address": {
+        "street": "Insurance HQ",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400001"
+      },
+
+      "nominees": [],
+
+      "preferences": {
+        "emailNotifications": true,
+        "smsNotifications": true,
+        "premiumReminders": true
+      }
+    }
+  ],
+
+  "policies": [],
+
+  "claims": [],
+
+  "payments": [],
+
+  "notifications": []
+}
