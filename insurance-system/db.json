@@ -1,65 +1,348 @@
 {
   "users": [
     {
-      "id": 1,
-      "fullName": "Ishaan Patel",
-      "email": "ishaan@gmail.com",
-      "phoneNumber": "9876543210",
+      "id": "u1",
+      "email": "rajesh.kumar@example.com",
       "password": "password123",
-      "role": "CUSTOMER",
-
-      "address": {
-        "street": "123 Green Park",
-        "city": "Ahmedabad",
-        "state": "Gujarat",
-        "pincode": "380001"
-      },
-
-      "nominees": [
-        {
-          "name": "Riya Patel",
-          "relationship": "Sister",
-          "phoneNumber": "9876500001"
-        }
-      ],
-
-      "preferences": {
-        "emailNotifications": true,
-        "smsNotifications": false,
-        "premiumReminders": true
-      }
+      "name": "Rajesh Kumar",
+      "role": "customer"
     },
-
     {
-      "id": 2,
-      "fullName": "Admin User",
-      "email": "admin@gmail.com",
-      "phoneNumber": "9999999999",
+      "id": "u2",
+      "email": "priya.sharma@example.com",
+      "password": "password123",
+      "name": "Priya Sharma",
+      "role": "customer"
+    },
+    {
+      "id": "u3",
+      "email": "amit.verma@example.com",
+      "password": "password123",
+      "name": "Amit Verma",
+      "role": "customer"
+    },
+    {
+      "id": "u4",
+      "email": "sneha.patel@example.com",
+      "password": "password123",
+      "name": "Sneha Patel",
+      "role": "customer"
+    },
+    {
+      "id": "u5",
+      "email": "admin@insureease.com",
       "password": "admin123",
-      "role": "ADMIN",
-
-      "address": {
-        "street": "Insurance HQ",
-        "city": "Mumbai",
-        "state": "Maharashtra",
-        "pincode": "400001"
-      },
-
-      "nominees": [],
-
-      "preferences": {
-        "emailNotifications": true,
-        "smsNotifications": true,
-        "premiumReminders": true
-      }
+      "name": "Admin User",
+      "role": "admin"
     }
   ],
 
-  "policies": [],
+  "customerProfiles": [
+    {
+      "id": "cp1",
+      "userId": "u1",
+      "dateOfBirth": "1990-04-15",
+      "address": {
+        "street": "12 MG Road",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "zipCode": "560001",
+        "country": "India"
+      },
+      "communicationPref": {
+        "emailAlerts": true,
+        "smsReminders": true,
+        "marketingEmails": false
+      },
+      "nominees": [
+        { "id": "n1", "fullName": "Sunita Kumar", "relationship": "Spouse", "percentage": 100 }
+      ]
+    },
+    {
+      "id": "cp2",
+      "userId": "u2",
+      "dateOfBirth": "1985-09-22",
+      "address": {
+        "street": "45 Linking Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "zipCode": "400050",
+        "country": "India"
+      },
+      "communicationPref": {
+        "emailAlerts": true,
+        "smsReminders": false,
+        "marketingEmails": true
+      },
+      "nominees": [
+        { "id": "n2", "fullName": "Arun Sharma", "relationship": "Father", "percentage": 60 },
+        { "id": "n3", "fullName": "Meena Sharma", "relationship": "Mother", "percentage": 40 }
+      ]
+    },
+    {
+      "id": "cp3",
+      "userId": "u3",
+      "dateOfBirth": "1992-12-10",
+      "address": {
+        "street": "8 Civil Lines",
+        "city": "Delhi",
+        "state": "Delhi",
+        "zipCode": "110054",
+        "country": "India"
+      },
+      "communicationPref": {
+        "emailAlerts": false,
+        "smsReminders": true,
+        "marketingEmails": false
+      },
+      "nominees": [
+        { "id": "n4", "fullName": "Kavita Verma", "relationship": "Spouse", "percentage": 70 },
+        { "id": "n5", "fullName": "Rohan Verma", "relationship": "Son", "percentage": 30 }
+      ]
+    },
+    {
+      "id": "cp4",
+      "userId": "u4",
+      "dateOfBirth": "1995-07-03",
+      "address": {
+        "street": "23 SG Highway",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "zipCode": "380054",
+        "country": "India"
+      },
+      "communicationPref": {
+        "emailAlerts": true,
+        "smsReminders": true,
+        "marketingEmails": true
+      },
+      "nominees": [
+        { "id": "n6", "fullName": "Ramesh Patel", "relationship": "Father", "percentage": 100 }
+      ]
+    },
+    {
+      "id": "cp5",
+      "userId": "u5",
+      "dateOfBirth": "1980-01-20",
+      "address": {
+        "street": "1 Admin Block",
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "zipCode": "500081",
+        "country": "India"
+      },
+      "communicationPref": {
+        "emailAlerts": true,
+        "smsReminders": true,
+        "marketingEmails": false
+      },
+      "nominees": []
+    }
+  ],
 
-  "claims": [],
+  "policies": [
+    {
+      "id": "p1",
+      "name": "HealthGuard Basic",
+      "type": "health",
+      "coverageAmount": 500000,
+      "premiumAmount": 8000,
+      "termYears": 1,
+      "minAge": 18,
+      "maxAge": 60,
+      "benefits": ["Hospitalization cover", "Day care procedures", "Pre & post hospitalization"],
+      "exclusions": ["Cosmetic surgery", "Self-inflicted injuries", "Pre-existing conditions (2yr wait)"],
+      "isActive": true
+    },
+    {
+      "id": "p2",
+      "name": "LifeSecure Term Plan",
+      "type": "life",
+      "coverageAmount": 10000000,
+      "premiumAmount": 12000,
+      "termYears": 20,
+      "minAge": 21,
+      "maxAge": 55,
+      "benefits": ["Death benefit", "Terminal illness cover", "Tax benefit under 80C"],
+      "exclusions": ["Suicide within 1 year", "Death due to war", "Aviation accidents"],
+      "isActive": true
+    },
+    {
+      "id": "p3",
+      "name": "AutoShield Comprehensive",
+      "type": "vehicle",
+      "coverageAmount": 800000,
+      "premiumAmount": 6500,
+      "termYears": 1,
+      "minAge": 18,
+      "maxAge": 70,
+      "benefits": ["Own damage cover", "Third party liability", "Roadside assistance", "Zero depreciation"],
+      "exclusions": ["Drunk driving", "Invalid license", "Wear and tear"],
+      "isActive": true
+    },
+    {
+      "id": "p4",
+      "name": "HealthGuard Premium",
+      "type": "health",
+      "coverageAmount": 1500000,
+      "premiumAmount": 18000,
+      "termYears": 1,
+      "minAge": 18,
+      "maxAge": 65,
+      "benefits": ["Hospitalization cover", "Critical illness cover", "OPD cover", "International coverage", "No claim bonus"],
+      "exclusions": ["Cosmetic surgery", "Self-inflicted injuries", "Dental (unless accident)"],
+      "isActive": true
+    },
+    {
+      "id": "p5",
+      "name": "LifeSecure Whole Life",
+      "type": "life",
+      "coverageAmount": 5000000,
+      "premiumAmount": 25000,
+      "termYears": 30,
+      "minAge": 25,
+      "maxAge": 50,
+      "benefits": ["Lifetime coverage", "Maturity benefit", "Loan facility", "Bonus accumulation"],
+      "exclusions": ["Suicide within 2 years", "Criminal activity", "Drug abuse"],
+      "isActive": true
+    }
+  ],
 
-  "payments": [],
+  "purchases": [
+    {
+      "id": "pur1",
+      "policyId": "p1",
+      "customerId": "u1",
+      "purchaseDate": "2024-01-10",
+      "startDate": "2024-01-10",
+      "endDate": "2025-01-10",
+      "selectedNominees": [{ "nomineeId": "n1", "percentage": 100 }],
+      "status": "active",
+      "policyDocumentUrl": "/docs/pur1-policy.pdf"
+    },
+    {
+      "id": "pur2",
+      "policyId": "p2",
+      "customerId": "u2",
+      "purchaseDate": "2023-06-15",
+      "startDate": "2023-06-15",
+      "endDate": "2043-06-15",
+      "selectedNominees": [
+        { "nomineeId": "n2", "percentage": 60 },
+        { "nomineeId": "n3", "percentage": 40 }
+      ],
+      "status": "active",
+      "policyDocumentUrl": "/docs/pur2-policy.pdf"
+    },
+    {
+      "id": "pur3",
+      "policyId": "p3",
+      "customerId": "u3",
+      "purchaseDate": "2024-03-01",
+      "startDate": "2024-03-01",
+      "endDate": "2025-03-01",
+      "selectedNominees": [{ "nomineeId": "n4", "percentage": 100 }],
+      "status": "active",
+      "policyDocumentUrl": "/docs/pur3-policy.pdf"
+    },
+    {
+      "id": "pur4",
+      "policyId": "p4",
+      "customerId": "u4",
+      "purchaseDate": "2023-11-20",
+      "startDate": "2023-11-20",
+      "endDate": "2024-11-20",
+      "selectedNominees": [{ "nomineeId": "n6", "percentage": 100 }],
+      "status": "expired",
+      "policyDocumentUrl": "/docs/pur4-policy.pdf"
+    },
+    {
+      "id": "pur5",
+      "policyId": "p5",
+      "customerId": "u1",
+      "purchaseDate": "2022-08-05",
+      "startDate": "2022-08-05",
+      "endDate": "2052-08-05",
+      "selectedNominees": [{ "nomineeId": "n1", "percentage": 100 }],
+      "status": "active",
+      "policyDocumentUrl": "/docs/pur5-policy.pdf"
+    }
+  ],
 
-  "notifications": []
+  "claims": [
+    {
+      "id": "cl1",
+      "purchaseId": "pur1",
+      "incidentDate": "2024-05-10",
+      "claimAmount": 45000,
+      "description": "Hospitalization due to dengue fever for 5 days",
+      "documents": [
+        { "type": "hospital_bill", "url": "/docs/cl1-bill.pdf", "verified": true },
+        { "type": "discharge_summary", "url": "/docs/cl1-discharge.pdf", "verified": true }
+      ],
+      "status": "approved",
+      "adminRemarks": "All documents verified. Claim approved.",
+      "submittedAt": "2024-05-18",
+      "updatedAt": "2024-05-25"
+    },
+    {
+      "id": "cl2",
+      "purchaseId": "pur3",
+      "incidentDate": "2024-04-02",
+      "claimAmount": 95000,
+      "description": "Vehicle rear-end collision on highway",
+      "documents": [
+        { "type": "fir_copy", "url": "/docs/cl2-fir.pdf", "verified": true },
+        { "type": "repair_estimate", "url": "/docs/cl2-estimate.pdf", "verified": false }
+      ],
+      "status": "under_review",
+      "adminRemarks": "",
+      "submittedAt": "2024-04-05",
+      "updatedAt": "2024-04-10"
+    },
+    {
+      "id": "cl3",
+      "purchaseId": "pur2",
+      "incidentDate": "2024-02-14",
+      "claimAmount": 200000,
+      "description": "Critical illness diagnosis — bypass surgery required",
+      "documents": [
+        { "type": "medical_report", "url": "/docs/cl3-report.pdf", "verified": true }
+      ],
+      "status": "additional_docs_required",
+      "adminRemarks": "Please submit surgeon's certificate and post-op summary.",
+      "submittedAt": "2024-02-20",
+      "updatedAt": "2024-03-01"
+    },
+    {
+      "id": "cl4",
+      "purchaseId": "pur4",
+      "incidentDate": "2023-12-01",
+      "claimAmount": 30000,
+      "description": "OPD treatment for chronic back pain",
+      "documents": [
+        { "type": "prescription", "url": "/docs/cl4-prescription.pdf", "verified": true },
+        { "type": "bills", "url": "/docs/cl4-bills.pdf", "verified": true }
+      ],
+      "status": "rejected",
+      "adminRemarks": "Policy expired before claim submission date.",
+      "submittedAt": "2023-12-10",
+      "updatedAt": "2023-12-15"
+    },
+    {
+      "id": "cl5",
+      "purchaseId": "pur5",
+      "incidentDate": "2024-06-01",
+      "claimAmount": 75000,
+      "description": "Accidental death claim for insured's vehicle accident",
+      "documents": [
+        { "type": "death_certificate", "url": "/docs/cl5-death.pdf", "verified": false },
+        { "type": "fir_copy", "url": "/docs/cl5-fir.pdf", "verified": false }
+      ],
+      "status": "submitted",
+      "adminRemarks": "",
+      "submittedAt": "2024-06-05",
+      "updatedAt": "2024-06-05"
+    }
+  ]
 }
