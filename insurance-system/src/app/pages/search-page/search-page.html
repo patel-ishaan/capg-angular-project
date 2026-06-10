@@ -1,0 +1,142 @@
+<app-navbar />
+
+<div class="search-container">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="search-header">
+      <h1>Search Policies</h1>
+      <p>Filter plans by type, premium, age and tenure</p>
+    </div>
+
+    <div class="search-layout">
+
+      <!-- Filters Panel -->
+      <aside class="filters-panel">
+        <div class="filters-header">
+          <h2>Filters</h2>
+          <button class="btn-reset" (click)="resetFilters()">Reset</button>
+        </div>
+
+        <!-- Search Text -->
+        <div class="filter-group">
+          <label>Search by name</label>
+          <input type="text" [(ngModel)]="filters.searchText"
+                 (ngModelChange)="applyFilters()"
+                 placeholder="e.g. HealthGuard" />
+        </div>
+
+        <!-- Type -->
+        <div class="filter-group">
+          <label>Policy Type</label>
+          <select [(ngModel)]="filters.type" (ngModelChange)="applyFilters()">
+            <option value="">All Types</option>
+            <option value="health">🏥 Health</option>
+            <option value="life">🛡️ Life</option>
+            <option value="vehicle">🚗 Vehicle</option>
+          </select>
+        </div>
+
+        <!-- Premium Range -->
+        <div class="filter-group">
+          <label>Min Premium (₹)</label>
+          <input type="number" [(ngModel)]="filters.minPremium"
+                 (ngModelChange)="applyFilters()"
+                 placeholder="e.g. 5000" />
+        </div>
+
+        <div class="filter-group">
+          <label>Max Premium (₹)</label>
+          <input type="number" [(ngModel)]="filters.maxPremium"
+                 (ngModelChange)="applyFilters()"
+                 placeholder="e.g. 20000" />
+        </div>
+
+        <!-- Age -->
+        <div class="filter-group">
+          <label>Your Age</label>
+          <input type="number" [(ngModel)]="filters.userAge"
+                 (ngModelChange)="applyFilters()"
+                 placeholder="e.g. 30" />
+        </div>
+
+        <!-- Term -->
+        <div class="filter-group">
+          <label>Min Term (years)</label>
+          <input type="number" [(ngModel)]="filters.minTerm"
+                 (ngModelChange)="applyFilters()"
+                 placeholder="e.g. 1" />
+        </div>
+
+        <div class="filter-group">
+          <label>Max Term (years)</label>
+          <input type="number" [(ngModel)]="filters.maxTerm"
+                 (ngModelChange)="applyFilters()"
+                 placeholder="e.g. 20" />
+        </div>
+
+      </aside>
+
+      <!-- Results -->
+      <div class="results-panel">
+
+        <div class="results-count">
+          @if (filteredPolicies.length > 0) {
+            <span>{{ filteredPolicies.length }} plan(s) found</span>
+          } @else {
+            <span>No plans match your filters</span>
+          }
+        </div>
+
+        @if (loading$ | async) {
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading policies...</p>
+          </div>
+        }
+
+        <div class="results-list">
+          @for (policy of filteredPolicies; track policy.id) {
+            <div class="result-card">
+
+              <div class="result-header" [class]="policy.type">
+                <span class="type-icon">{{ getTypeIcon(policy.type) }}</span>
+                <span class="type-badge">{{ policy.type }}</span>
+              </div>
+
+              <div class="result-body">
+                <h3>{{ policy.name }}</h3>
+
+                <div class="result-stats">
+                  <div class="stat">
+                    <span class="stat-label">Coverage</span>
+                    <span class="stat-value">₹{{ policy.coverageAmount | number }}</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Premium</span>
+                    <span class="stat-value">₹{{ policy.premiumAmount | number }}/yr</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Term</span>
+                    <span class="stat-value">{{ policy.termYears }} yr</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Age</span>
+                    <span class="stat-value">{{ policy.minAge }}–{{ policy.maxAge }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-footer">
+                <button class="btn-compare" (click)="addToCompare(policy)">+ Compare</button>
+                <a class="btn-buy" [routerLink]="['/purchase', policy.id]">Buy Now</a>
+              </div>
+
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
