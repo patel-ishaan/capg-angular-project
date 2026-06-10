@@ -1,0 +1,124 @@
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="container nav-container">
+    <a class="brand" routerLink="/">InsurePro</a>
+
+    <div class="nav-links">
+      <a routerLink="/">Home</a>
+      <a routerLink="/policies">Policies</a>
+      <a routerLink="/about">About</a>
+      <a routerLink="/contact">Contact</a>
+
+      <div class="nav-buttons">
+        <a class="btn-outline" routerLink="/dashboard">Dashboard</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROFILE SECTION -->
+<section class="profile-section" *ngIf="user && profile">
+
+  <div class="container">
+
+    <div class="profile-card">
+
+      <div class="profile-header">
+        <h1>My Profile</h1>
+        <p>Manage your personal information</p>
+      </div>
+
+      <div class="profile-grid">
+
+        <div class="profile-item">
+          <label>Full Name</label>
+          <span>{{ user.name }}</span>
+        </div>
+
+        <div class="profile-item">
+          <label>Email</label>
+          <span>{{ user.email }}</span>
+        </div>
+
+        <div class="profile-item">
+          <label>Role</label>
+          <span>{{ user.role }}</span>
+        </div>
+
+        <div class="profile-item">
+          <label>Date Of Birth</label>
+          <span>{{ profile.dateOfBirth }}</span>
+        </div>
+
+        <div class="profile-item">
+          <label>Street</label>
+          <span>{{ profile.address.street }}</span>
+        </div>
+
+        <div class="profile-item">
+          <label>City</label>
+          <span>{{ profile.address.city }}</span>
+        </div>
+
+        <div class="profile-item">
+          <label>State</label>
+          <span>{{ profile.address.state }}</span>
+        </div>
+
+        <div class="profile-item">
+          <label>Zip Code</label>
+          <span>{{ profile.address.zipCode }}</span>
+        </div>
+
+        <div class="profile-item">
+          <label>Country</label>
+          <span>{{ profile.address.country }}</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-container">
+
+    <div class="footer-column">
+      <h3>InsurePro</h3>
+      <ul>
+        <li><a routerLink="/about">About Us</a></li>
+        <li><a routerLink="/careers">Careers</a></li>
+        <li><a routerLink="/blog">Blog</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Products</h3>
+      <ul>
+        <li><a routerLink="/health">Health Insurance</a></li>
+        <li><a routerLink="/life">Life Insurance</a></li>
+        <li><a routerLink="/vehicle">Vehicle Insurance</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Support</h3>
+      <ul>
+        <li><a routerLink="/faq">FAQ</a></li>
+        <li><a routerLink="/contact">Contact Us</a></li>
+        <li><a routerLink="/claim-help">Claim Help</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <p>© 2025 InsurePro. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
