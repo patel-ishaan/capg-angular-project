@@ -1,0 +1,231 @@
+.dashboard-container {
+  min-height: calc(100vh - 65px);
+  background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+  padding: 2.5rem 1.5rem;
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* Welcome */
+.welcome-section {
+  margin-bottom: 2.5rem;
+}
+
+.welcome-section h1 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1e2a41 0%, #0a5c8e 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.welcome-section p {
+  color: #5a6e8a;
+  font-size: 1rem;
+}
+
+/* Section */
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e2a41;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eef2f6;
+}
+
+/* Actions List */
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #eef2f6;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #1e2a41;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.action-item:hover {
+  border-color: #0a5c8e;
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(10, 92, 142, 0.1);
+}
+
+.action-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  text-align: center;
+}
+
+.action-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.action-text strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e2a41;
+}
+
+.action-text span {
+  font-size: 0.82rem;
+  color: #5a6e8a;
+}
+
+.arrow {
+  color: #0a5c8e;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Policies List */
+.policies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.policy-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #eef2f6;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.policy-item.expired {
+  opacity: 0.6;
+  border-color: #fde8e8;
+  background: #fffafa;
+}
+
+.policy-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e2a41;
+  margin-bottom: 0.35rem;
+}
+
+.policy-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3rem;
+  text-transform: capitalize;
+}
+
+.badge.health { background: #e8f5e9; color: #2e7d32; }
+.badge.life   { background: #e3f2fd; color: #1565c0; }
+.badge.vehicle { background: #fff3e0; color: #e65100; }
+
+.policy-dates {
+  font-size: 0.78rem;
+  color: #5a6e8a;
+}
+
+.policy-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3rem;
+  text-transform: capitalize;
+}
+
+.status-badge.active   { background: #e8f5e9; color: #2e7d32; }
+.status-badge.expired  { background: #ffebee; color: #c62828; }
+.status-badge.cancelled { background: #f3e5f5; color: #6a1b9a; }
+
+.coverage {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0a5c8e;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #5a6e8a;
+  background: #ffffff;
+  border: 1px solid #eef2f6;
+  border-radius: 12px;
+}
+
+.empty-state span {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.empty-state p {
+  margin-bottom: 1.25rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  padding: 0.65rem 1.5rem;
+  background: #0a5c8e;
+  color: white;
+  border-radius: 3rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: #07426a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .policy-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .policy-right {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+}
