@@ -1,0 +1,26 @@
+.error-page {
+}
+.error-container {
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+.error-code {
+  font-size: 6rem;
+  font-weight: 700;
+  color: #0a5c8e;
+  margin-bottom: 1rem;
+}
+.error-message {
+  font-size: 1.5rem;
+  color: #5a6e8a;
+  margin-bottom: 2rem;
+}
+.btn-primary {
+  background: #0a5c8e;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
