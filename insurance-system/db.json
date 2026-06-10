@@ -41,6 +41,13 @@
       "password": "test123",
       "role": "customer",
       "id": "CxJe83wDylI"
+    },
+    {
+      "name": "ishaan patel",
+      "email": "ishaanpatel29976@gmail.com",
+      "password": "ishaan123",
+      "role": "customer",
+      "id": "qP6KFSsoiqM"
     }
   ],
   "customerProfiles": [

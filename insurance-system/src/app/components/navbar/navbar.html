@@ -1,0 +1,18 @@
+<header class="navbar">
+  <div class="container nav-container">
+    <a class="brand" routerLink="/" (click)="closeMenu()">InsurePro</a>
+    <button class="mobile-menu-btn" (click)="toggleMenu()" aria-label="Menu" [attr.aria-expanded]="mobileMenuOpen">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" [class.show]="mobileMenuOpen">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Home</a>
+      <a routerLink="/policies" routerLinkActive="active" (click)="closeMenu()">Policies</a>
+      <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
+      <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
+      <div class="nav-buttons">
+        <a class="btn-outline" routerLink="/login" (click)="closeMenu()">Login</a>
+        <a class="btn-primary" routerLink="/register" (click)="closeMenu()">Register</a>
+      </div>
+    </div>
+  </div>
+</header>

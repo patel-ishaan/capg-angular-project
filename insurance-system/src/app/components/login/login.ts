@@ -40,6 +40,7 @@ export class LoginComponent {
 
     this.loginService.login(email!, password!).subscribe({
       next: (user) => {
+        console.log("correct login");
         this.loading = false;
         this.router.navigate([user.role === 'admin' ? '/admin' : '/dashboard']);
       },
