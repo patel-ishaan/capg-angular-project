@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard';
 import { CatalogPageComponent } from './pages/catalog-page/catalog-page';
 import { PaymentsPageComponent } from './pages/payments/payments';
 import { ClaimsPageComponent } from './pages/claims/claims';
+import { SearchPageComponent } from './pages/search-page/search-page';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent },
@@ -15,4 +16,5 @@ export const routes: Routes = [
     { path: 'catalog', component: CatalogPageComponent },
     { path: 'payments', component: PaymentsPageComponent },
     { path: 'claims', component: ClaimsPageComponent }
+    {path:'search', component:SearchPageComponent}
 ];
