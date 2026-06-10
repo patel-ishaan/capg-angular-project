@@ -10,6 +10,8 @@ import { SearchPageComponent } from './pages/search-page/search-page';
 import { Component } from '@angular/core';
 import { Hero } from './components/hero/hero';
 import { ErrorPage } from './pages/error-page/error-page';
+import { authRedircetGuard } from './guards/auth-redirect.guard';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -19,6 +21,7 @@ export const routes: Routes = [
       {
         path: '',
         component: Hero,
+        canActivate: [authRedircetGuard],
       },
       {
         path: 'login',
@@ -34,7 +37,7 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'catalog', component: CatalogPageComponent },
   { path: 'payments', component: PaymentsPageComponent },
   { path: 'claims', component: ClaimsPageComponent },
