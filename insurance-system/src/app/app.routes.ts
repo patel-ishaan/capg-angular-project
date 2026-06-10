@@ -4,11 +4,13 @@ import { LoginComponent } from './components/login/login';
 import { RegisterComponent } from './components/register/register';
 import { DashboardComponent } from './dashboard/dashboard';
 import { CatalogPageComponent } from './pages/catalog-page/catalog-page';
+import { PaymentsPageComponent } from './pages/payments/payments';
 
 export const routes: Routes = [
-    {path: '', component: LandingPageComponent},
-    {path: 'login', component:LoginComponent},
-    {path: 'register',component:RegisterComponent},
-    {path: 'dashboard',component:DashboardComponent},
-    {path:'catalog',component:CatalogPageComponent}
+    { path: '', component: LandingPageComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'catalog', component: CatalogPageComponent },
+    { path: 'payments', component: PaymentsPageComponent }
 ];
