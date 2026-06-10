@@ -24,7 +24,8 @@ export class RegisterService {
         }
 
         // Step 2: if email is free, POST the new user
-        const newUser = { name, email, password, role: 'customer' };
+        // const newUser = { name, email, password, role: 'customer' };
+        const newUser = { name, email, password: String(password), role: 'customer' };
         return this.http.post<User>(`${this.BASE_URL}/users`, newUser);
       }),
 
