@@ -1,0 +1,61 @@
+<div class="container">
+
+  <h1>Compare Policies</h1>
+
+  <h1>{{ testMessage }}</h1>
+
+   <p>Policy 1: {{ selectedPolicy1 | json }}</p>
+  <p>Policy 2: {{ selectedPolicy2 | json }}</p>
+
+
+  <h2>TEST {{ policies.length }}</h2>
+
+<h2>{{ selectedPolicy1 | json }}</h2>
+
+  <table *ngIf="selectedPolicy1 && selectedPolicy2">
+
+    <tr>
+      <th>Feature</th>
+      <th>{{selectedPolicy1.name}}</th>
+      <th>{{selectedPolicy2.name}}</th>
+    </tr>
+
+    <tr>
+      <td>Type</td>
+      <td>{{selectedPolicy1.type}}</td>
+      <td>{{selectedPolicy2.type}}</td>
+    </tr>
+
+    <tr>
+      <td>Coverage</td>
+      <td>{{selectedPolicy1.coverageAmount}}</td>
+      <td>{{selectedPolicy2.coverageAmount}}</td>
+    </tr>
+
+    <tr>
+      <td>Premium</td>
+      <td>{{selectedPolicy1.premiumAmount}}</td>
+      <td>{{selectedPolicy2.premiumAmount}}</td>
+    </tr>
+
+    <tr>
+      <td>Term Years</td>
+      <td>{{selectedPolicy1.termYears}}</td>
+      <td>{{selectedPolicy2.termYears}}</td>
+    </tr>
+
+    <tr>
+      <td>Min Age</td>
+      <td>{{selectedPolicy1.minAge}}</td>
+      <td>{{selectedPolicy2.minAge}}</td>
+    </tr>
+
+    <tr>
+      <td>Max Age</td>
+      <td>{{selectedPolicy1.maxAge}}</td>
+      <td>{{selectedPolicy2.maxAge}}</td>
+    </tr>
+
+  </table>
+
+</div>

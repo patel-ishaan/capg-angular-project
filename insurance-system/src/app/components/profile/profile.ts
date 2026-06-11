@@ -3,14 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { LoginService } from '../../services/auth/login-service';
 import { ProfileService } from '../../services/profile/profile-service';
+import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    NavbarComponent
+  ],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
+
 export class ProfileComponent implements OnInit {
 
   private loginService = inject(LoginService);
@@ -20,6 +25,8 @@ export class ProfileComponent implements OnInit {
   profile: any = null;
 
   ngOnInit(): void {
+
+     console.log('CURRENT USER:', this.loginService.currentUser());
 
   console.log('STEP 1');
 
