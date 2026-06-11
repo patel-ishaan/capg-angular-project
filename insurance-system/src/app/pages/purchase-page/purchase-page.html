@@ -1,0 +1,235 @@
+<app-navbar />
+
+<div class="purchase-container">
+  <div class="container">
+
+    @if (loading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading policy details...</p>
+      </div>
+    } @else if (!policy()) {
+      <div class="error-state">
+        <p>{{ error() || 'Policy not found.' }}</p>
+        <a routerLink="/catalog" class="btn-primary">Back to Catalog</a>
+      </div>
+    } @else {
+
+      <!-- Policy Summary Bar -->
+      <div class="policy-bar">
+        <div class="policy-bar-info">
+          <span class="policy-bar-name">{{ policy()!.name }}</span>
+          <span class="policy-bar-meta">
+            ₹{{ policy()!.coverageAmount | number }} coverage •
+            ₹{{ policy()!.premiumAmount | number }}/yr •
+            {{ policy()!.termYears }} yr term
+          </span>
+        </div>
+        <a routerLink="/catalog" class="btn-back">← Change Plan</a>
+      </div>
+
+      <!-- Step Indicator -->
+      @if (currentStep() < 4) {
+        <div class="steps">
+          <div class="step" [class.active]="currentStep() >= 1" [class.done]="currentStep() > 1">
+            <span class="step-num">1</span>
+            <span class="step-label">Nominees</span>
+          </div>
+          <div class="step-line" [class.done]="currentStep() > 1"></div>
+          <div class="step" [class.active]="currentStep() >= 2" [class.done]="currentStep() > 2">
+            <span class="step-num">2</span>
+            <span class="step-label">Declaration</span>
+          </div>
+          <div class="step-line" [class.done]="currentStep() > 2"></div>
+          <div class="step" [class.active]="currentStep() >= 3">
+            <span class="step-num">3</span>
+            <span class="step-label">Payment</span>
+          </div>
+        </div>
+      }
+
+      <!-- Step 1: Nominees -->
+      @if (currentStep() === 1) {
+        <div class="step-card">
+          <h2>Nominee Details</h2>
+          <p class="step-desc">Add up to 3 nominees. Total percentage must equal 100%.</p>
+
+          <form [formGroup]="nomineeForm">
+            <div formArrayName="nominees">
+              @for (nominee of nominees.controls; track $index) {
+                <div class="nominee-card" [formGroupName]="$index">
+                  <div class="nominee-header">
+                    <span>Nominee {{ $index + 1 }}</span>
+                    @if (nominees.length > 1) {
+                      <button type="button" class="btn-remove" (click)="removeNominee($index)">Remove</button>
+                    }
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Full Name</label>
+                      <input type="text" formControlName="fullName" placeholder="Nominee name" />
+                      @if (nominee.get('fullName')?.touched && nominee.get('fullName')?.errors?.['required']) {
+                        <div class="error-msg">Name is required</div>
+                      }
+                    </div>
+                    <div class="form-group">
+                      <label>Relationship</label>
+                      <select formControlName="relationship">
+                        <option value="">Select</option>
+                        <option value="Spouse">Spouse</option>
+                        <option value="Father">Father</option>
+                        <option value="Mother">Mother</option>
+                        <option value="Son">Son</option>
+                        <option value="Daughter">Daughter</option>
+                        <option value="Sibling">Sibling</option>
+                      </select>
+                      @if (nominee.get('relationship')?.touched && nominee.get('relationship')?.errors?.['required']) {
+                        <div class="error-msg">Relationship is required</div>
+                      }
+                    </div>
+                    <div class="form-group">
+                      <label>Share %</label>
+                      <input type="number" formControlName="percentage" min="1" max="100" />
+                      @if (nominee.get('percentage')?.touched && nominee.get('percentage')?.errors?.['required']) {
+                        <div class="error-msg">Percentage is required</div>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </form>
+
+          <div class="percentage-bar">
+            <span>Total: {{ totalPercentage }}%</span>
+            <span [class.valid]="totalPercentage === 100" [class.invalid]="totalPercentage !== 100">
+              {{ totalPercentage === 100 ? '✅ Valid' : '❌ Must be 100%' }}
+            </span>
+          </div>
+
+          @if (nominees.length < 3) {
+            <button class="btn-add-nominee" (click)="addNominee()">+ Add Nominee</button>
+          }
+
+          @if (error()) {
+            <div class="alert-error">{{ error() }}</div>
+          }
+
+          <div class="step-actions">
+            <a routerLink="/catalog" class="btn-secondary">Cancel</a>
+            <button class="btn-primary" (click)="nextStep()">Next →</button>
+          </div>
+        </div>
+      }
+
+      <!-- Step 2: Declaration -->
+      @if (currentStep() === 2) {
+        <div class="step-card">
+          <h2>Declaration</h2>
+          <p class="step-desc">Please read and accept the terms before proceeding.</p>
+
+          <div class="declaration-box">
+            <p>I, <strong>{{ loginService.currentUser()?.name }}</strong>, hereby declare that:</p>
+            <ul>
+              <li>All information provided is true and accurate to the best of my knowledge.</li>
+              <li>I understand that any misrepresentation may result in policy cancellation.</li>
+              <li>I have read and understood the policy terms, benefits, and exclusions for <strong>{{ policy()!.name }}</strong>.</li>
+              <li>I consent to the premium amount of <strong>₹{{ policy()!.premiumAmount | number }}</strong> per year.</li>
+              <li>I acknowledge that the policy coverage is <strong>₹{{ policy()!.coverageAmount | number }}</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="declaration-check">
+            <input type="checkbox" id="accept"
+                   [checked]="declarationAccepted()"
+                   (change)="declarationAccepted.set(!declarationAccepted())" />
+            <label for="accept">I accept the above declaration and agree to the terms and conditions.</label>
+          </div>
+
+          @if (error()) {
+            <div class="alert-error">{{ error() }}</div>
+          }
+
+          <div class="step-actions">
+            <button class="btn-secondary" (click)="prevStep()">← Back</button>
+            <button class="btn-primary" (click)="nextStep()">Next →</button>
+          </div>
+        </div>
+      }
+
+      <!-- Step 3: Payment -->
+      @if (currentStep() === 3) {
+        <div class="step-card">
+          <h2>Payment</h2>
+          <p class="step-desc">Review your order and complete payment.</p>
+
+          <div class="order-summary">
+            <div class="order-row">
+              <span>Policy</span>
+              <strong>{{ policy()!.name }}</strong>
+            </div>
+            <div class="order-row">
+              <span>Coverage</span>
+              <strong>₹{{ policy()!.coverageAmount | number }}</strong>
+            </div>
+            <div class="order-row">
+              <span>Term</span>
+              <strong>{{ policy()!.termYears }} year(s)</strong>
+            </div>
+            <div class="order-row total">
+              <span>Premium Amount</span>
+              <strong>₹{{ policy()!.premiumAmount | number }}</strong>
+            </div>
+          </div>
+
+          <form [formGroup]="paymentForm">
+            <div class="form-group">
+              <label>Payment Method</label>
+              <div class="payment-methods">
+                @for (method of ['Credit Card', 'Debit Card', 'Net Banking', 'UPI']; track method) {
+                  <label class="method-option"
+                         [class.selected]="paymentForm.get('paymentMethod')?.value === method">
+                    <input type="radio" formControlName="paymentMethod" [value]="method" />
+                    {{ method }}
+                  </label>
+                }
+              </div>
+              @if (paymentForm.get('paymentMethod')?.touched && paymentForm.get('paymentMethod')?.errors?.['required']) {
+                <div class="error-msg">Please select a payment method</div>
+              }
+            </div>
+          </form>
+
+          @if (error()) {
+            <div class="alert-error">{{ error() }}</div>
+          }
+
+          <div class="step-actions">
+            <button class="btn-secondary" (click)="prevStep()">← Back</button>
+            <button class="btn-primary" (click)="confirmPurchase()" [disabled]="submitting()">
+              {{ submitting() ? 'Processing...' : 'Confirm & Pay ₹' + (policy()!.premiumAmount | number) }}
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- Step 4: Success -->
+      @if (currentStep() === 4) {
+        <div class="success-card">
+          <div class="success-icon">🎉</div>
+          <h2>Purchase Successful!</h2>
+          <p>Your <strong>{{ policy()!.name }}</strong> policy has been activated.</p>
+          <p class="success-meta">
+            Coverage: ₹{{ policy()!.coverageAmount | number }} •
+            Premium: ₹{{ policy()!.premiumAmount | number }}/yr
+          </p>
+          <div class="success-actions">
+            <a routerLink="/dashboard" class="btn-primary">Go to Dashboard</a>
+            <a routerLink="/payments" class="btn-secondary">View Payments</a>
+          </div>
+        </div>
+      }
+
+    }
+  </div>
+</div>

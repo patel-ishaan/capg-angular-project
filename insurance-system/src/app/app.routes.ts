@@ -11,6 +11,7 @@ import { Hero } from './components/hero/hero';
 import { ErrorPage } from './pages/error-page/error-page';
 import { authRedircetGuard } from './guards/auth-redirect.guard';
 import { authGuard } from './guards/auth.guard';
+import { PurchasePageComponent } from './pages/purchase-page/purchase-page';
 
 export const routes: Routes = [
   {
@@ -67,9 +68,13 @@ export const routes: Routes = [
     path: 'policies',
     component: CatalogPageComponent,
   },
-
+  {
+    path:'purchase/:policyId',
+    component:PurchasePageComponent
+  },
   {
     path: '**',
     redirectTo: 'error',
   },
+  
 ];
