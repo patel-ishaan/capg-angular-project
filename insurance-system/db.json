@@ -191,11 +191,10 @@
   ],
   "policies": [
     {
-      "id": "p1",
       "name": "HealthGuard Basic",
       "type": "health",
       "coverageAmount": 500000,
-      "premiumAmount": 8000,
+      "premiumAmount": 12000,
       "termYears": 1,
       "minAge": 18,
       "maxAge": 60,
@@ -209,7 +208,8 @@
         "Self-inflicted injuries",
         "Pre-existing conditions (2yr wait)"
       ],
-      "isActive": true
+      "isActive": true,
+      "id": "p1"
     },
     {
       "id": "p2",
@@ -298,6 +298,23 @@
         "Drug abuse"
       ],
       "isActive": true
+    },
+    {
+      "name": "testPolicy",
+      "type": "life",
+      "coverageAmount": 11500000,
+      "premiumAmount": 101,
+      "termYears": 9,
+      "minAge": 18,
+      "maxAge": 65,
+      "benefits": [
+        "money after dead"
+      ],
+      "exclusions": [
+        "already dead"
+      ],
+      "isActive": true,
+      "id": "AsyQ7z9RHCg"
     }
   ],
   "purchases": [
@@ -416,6 +433,42 @@
       "status": "active",
       "policyDocumentUrl": "/docs/p2-policy.pdf",
       "id": "Pyq-6wQbewc"
+    },
+    {
+      "policyId": "p3",
+      "customerId": "qP6KFSsoiqM",
+      "purchaseDate": "2026-06-11T09:32:19.967Z",
+      "startDate": "2026-06-11T09:32:19.967Z",
+      "endDate": "2027-06-11T09:32:19.967Z",
+      "selectedNominees": [
+        {
+          "nomineeId": "nom_1781170339967_0",
+          "percentage": 100
+        }
+      ],
+      "status": "active",
+      "policyDocumentUrl": "/docs/p3-policy.pdf",
+      "id": "V1mxoWgCucs"
+    },
+    {
+      "policyId": "p3",
+      "customerId": "qP6KFSsoiqM",
+      "purchaseDate": "2026-06-11T09:32:56.663Z",
+      "startDate": "2026-06-11T09:32:56.663Z",
+      "endDate": "2027-06-11T09:32:56.663Z",
+      "selectedNominees": [
+        {
+          "nomineeId": "nom_1781170376663_0",
+          "percentage": 50
+        },
+        {
+          "nomineeId": "nom_1781170376663_1",
+          "percentage": 50
+        }
+      ],
+      "status": "active",
+      "policyDocumentUrl": "/docs/p3-policy.pdf",
+      "id": "Nx-BkuX-H9I"
     }
   ],
   "payments": [
@@ -478,6 +531,16 @@
       "status": "paid",
       "paymentMethod": "Credit Card",
       "id": "nh7ll2QXeRg"
+    },
+    {
+      "purchaseId": "Nx-BkuX-H9I",
+      "customerId": "qP6KFSsoiqM",
+      "amount": 6500,
+      "dueDate": "2027-06-11",
+      "paidDate": "2026-06-11",
+      "status": "paid",
+      "paymentMethod": "UPI",
+      "id": "_wOjjvQ01kA"
     }
   ],
   "claims": [
