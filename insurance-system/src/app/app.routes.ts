@@ -11,6 +11,7 @@ import { Hero } from './components/hero/hero';
 import { ErrorPage } from './pages/error-page/error-page';
 import { authRedircetGuard } from './guards/auth-redirect.guard';
 import { authGuard } from './guards/auth.guard';
+import { ComparePoliciesComponent } from './components/compare-policies/compare-policies';
 
 export const routes: Routes = [
   {
@@ -62,6 +63,11 @@ export const routes: Routes = [
     path: 'search',
     component: SearchPageComponent,
   },
+
+    {
+    path: 'policies/compare',
+    component: ComparePoliciesComponent,
+    },
 
   {
     path: 'policies',
