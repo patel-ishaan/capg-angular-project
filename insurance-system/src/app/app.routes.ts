@@ -17,6 +17,7 @@ import { AdminLayout } from './pages/admin-layout/admin-layout';
 import { AdminGuard } from './guards/auth-isAdmin.guard';
 import { AdminDashboard } from './components/admin/admin-dashboard/admin-dashboard';
 import { AdminPolicies } from './pages/admin/admin-policies/admin-policies';
+import { AdminClaimsComponent } from './pages/admin/admin-claims/admin-claims';
 
 export const routes: Routes = [
   {
@@ -84,6 +85,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: AdminDashboard },
       { path: 'policies', component: AdminPolicies },
+      { path: 'claims', component:AdminClaimsComponent},
       { path: '**', component: ErrorPage }
     ],
   },
