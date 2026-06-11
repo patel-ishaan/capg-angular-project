@@ -1,0 +1,206 @@
+<app-navbar />
+
+<div class="add-claim-container">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="page-header">
+      <a routerLink="/claims" class="back-link">← Back to Claims</a>
+      <h1>Submit New Claim</h1>
+      <p>Fill in the details below to raise a claim against your active policy.</p>
+    </div>
+
+    <!-- Loading -->
+    @if (loading()) {
+      <div class="state-box">Loading your active policies...</div>
+    }
+
+    <!-- No active policies -->
+    @if (!loading() && activePurchases().length === 0) {
+      <div class="state-box empty">
+        <span>🛡️</span>
+        <p>You have no active policies to claim against.</p>
+        <a routerLink="/catalog" class="btn-primary">Browse Policies</a>
+      </div>
+    }
+
+    <!-- Form -->
+    @if (!loading() && activePurchases().length > 0) {
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <!-- STEP 1: Select Policy -->
+        <div class="form-card">
+          <h2 class="step-title">
+            <span class="step-num">1</span> Select Policy
+          </h2>
+
+          <div class="form-group">
+            <label for="purchaseId">Active Policy *</label>
+            <select
+              id="purchaseId"
+              formControlName="purchaseId"
+              (change)="onPolicyChange($event)"
+              [class.invalid]="purchaseId.invalid && purchaseId.touched">
+              <option value="">-- Select a policy --</option>
+              @for (p of activePurchases(); track p.id) {
+                <option [value]="p.id">
+                  {{ p.policy?.name }} — ₹{{ p.policy?.coverageAmount | number }} coverage
+                </option>
+              }
+            </select>
+            @if (purchaseId.touched && purchaseId.errors?.['required']) {
+              <span class="error">Please select a policy</span>
+            }
+          </div>
+
+          <!-- Policy info card -->
+          @if (selectedPurchase()) {
+            <div class="policy-info-card">
+              <span class="badge" [class]="selectedPurchase()!.policy?.type">
+                {{ selectedPurchase()!.policy?.type }}
+              </span>
+              <div class="policy-info-row">
+                <div>
+                  <small>Coverage</small>
+                  <strong>₹{{ selectedPurchase()!.policy?.coverageAmount | number }}</strong>
+                </div>
+                <div>
+                  <small>Valid Until</small>
+                  <strong>{{ selectedPurchase()!.endDate }}</strong>
+                </div>
+                <div>
+                  <small>Premium</small>
+                  <strong>₹{{ selectedPurchase()!.policy?.premiumAmount | number }}/yr</strong>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- STEP 2: Incident Details -->
+        @if (selectedPurchase()) {
+
+          <div class="form-card">
+            <h2 class="step-title">
+              <span class="step-num">2</span> Incident Details
+            </h2>
+
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="incidentDate">Incident Date *</label>
+                <input
+                  id="incidentDate"
+                  type="date"
+                  formControlName="incidentDate"
+                  [class.invalid]="incidentDate.invalid && incidentDate.touched" />
+                @if (incidentDate.touched && incidentDate.errors?.['required']) {
+                  <span class="error">Incident date is required</span>
+                }
+                @if (incidentDate.touched && incidentDate.errors?.['beforePolicyStart']) {
+                  <span class="error">Date is before your policy start date</span>
+                }
+                @if (incidentDate.touched && incidentDate.errors?.['afterPolicyEnd']) {
+                  <span class="error">Date is after your policy end date</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="claimAmount">Claim Amount (₹) *</label>
+                <input
+                  id="claimAmount"
+                  type="number"
+                  formControlName="claimAmount"
+                  placeholder="Enter amount"
+                  [class.invalid]="claimAmount.invalid && claimAmount.touched" />
+                @if (claimAmount.touched && claimAmount.errors?.['required']) {
+                  <span class="error">Claim amount is required</span>
+                }
+                @if (claimAmount.touched && claimAmount.errors?.['min']) {
+                  <span class="error">Amount must be greater than 0</span>
+                }
+                @if (claimAmount.touched && claimAmount.errors?.['exceedsCoverage']) {
+                  <span class="error">
+                    Amount exceeds coverage limit of
+                    ₹{{ claimAmount.errors?.['exceedsCoverage'].max | number }}
+                  </span>
+                }
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description *</label>
+              <textarea
+                id="description"
+                formControlName="description"
+                rows="4"
+                placeholder="Describe the incident in detail (minimum 20 characters)"
+                [class.invalid]="description.invalid && description.touched">
+              </textarea>
+              @if (description.touched && description.errors?.['required']) {
+                <span class="error">Description is required</span>
+              }
+              @if (description.touched && description.errors?.['minlength']) {
+                <span class="error">
+                  At least 20 characters required
+                  ({{ description.value?.length ?? 0 }}/20)
+                </span>
+              }
+            </div>
+          </div>
+
+          <!-- STEP 3: Dynamic Document Checklist -->
+          <div class="form-card" formGroupName="documents">
+            <h2 class="step-title">
+              <span class="step-num">3</span> Supporting Documents
+            </h2>
+            <p class="step-hint">
+              Check all documents you are submitting with this claim.
+              At least one is required.
+            </p>
+
+            <div class="docs-grid">
+              @for (doc of requiredDocs(); track doc) {
+                <label
+                  class="doc-item"
+                  [class.checked]="documentsGroup.get(doc)?.value">
+                  <input type="checkbox" [formControlName]="doc" />
+                  <span class="doc-icon">📄</span>
+                  <span class="doc-label">{{ formatDocLabel(doc) }}</span>
+                </label>
+              }
+            </div>
+
+            @if (documentsGroup.touched && documentsGroup.errors?.['noDocuments']) {
+              <span class="error">Please acknowledge at least one document</span>
+            }
+          </div>
+
+          <!-- Alerts -->
+          @if (error()) {
+            <div class="alert-error">{{ error() }}</div>
+          }
+          @if (success()) {
+            <div class="alert-success">{{ success() }}</div>
+          }
+
+          <!-- Actions -->
+          <div class="form-actions">
+            <a routerLink="/claims" class="btn-outline">Cancel</a>
+            <button
+              type="submit"
+              class="btn-primary"
+              [disabled]="submitting()">
+              {{ submitting() ? 'Submitting...' : 'Submit Claim' }}
+            </button>
+          </div>
+
+        }
+
+      </form>
+    }
+
+  </div>
+</div>

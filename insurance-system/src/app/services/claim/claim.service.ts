@@ -45,4 +45,8 @@ export class ClaimService {
       `${this.claimsUrl}/${id}`
     );
   }
+
+  submitClaim(claim: Partial<Claim>): Observable<Claim> {
+  return this.http.post<Claim>(this.claimsUrl, claim);
+}
 }

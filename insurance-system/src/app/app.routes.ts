@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard';
 import { CatalogPageComponent } from './pages/catalog-page/catalog-page';
 import { PaymentsPageComponent } from './pages/payments/payments';
 import { ClaimsPageComponent } from './pages/claims/claims';
+import { AddClaimComponent } from './pages/claims/add-claim/add-claim';
 import { SearchPageComponent } from './pages/search-page/search-page';
 import { Hero } from './components/hero/hero';
 import { ErrorPage } from './pages/error-page/error-page';
@@ -51,6 +52,12 @@ export const routes: Routes = [
   {
     path: 'payments',
     component: PaymentsPageComponent,
+  },
+
+  {
+    path: 'claims/add',          
+    component: AddClaimComponent,
+    canActivate: [authGuard],
   },
 
   {
