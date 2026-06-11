@@ -94,3 +94,27 @@
   background: white;
   border-radius: 12px;
 }
+
+.claims-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  background: #0a5c8e;
+  color: white;
+  padding: 0.65rem 1.5rem;
+  border-radius: 3rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: #07426a;
+  transform: translateY(-1px);
+}

@@ -653,6 +653,24 @@
       "adminRemarks": "",
       "submittedAt": "2024-06-05",
       "updatedAt": "2024-06-05"
+    },
+    {
+      "purchaseId": "pur1",
+      "incidentDate": "2024-01-31T00:00:00.000Z",
+      "claimAmount": 500000,
+      "description": "sjncksckjsnckkajcn ka c",
+      "documents": [
+        {
+          "type": "hospital_bill",
+          "url": "",
+          "verified": false
+        }
+      ],
+      "status": "submitted",
+      "adminRemarks": "",
+      "submittedAt": "2026-06-11T08:26:54.820Z",
+      "updatedAt": "2026-06-11T08:26:54.820Z",
+      "id": "MNChbjo9rUE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
