@@ -18,6 +18,7 @@ import { AdminGuard } from './guards/auth-isAdmin.guard';
 import { AdminDashboard } from './components/admin/admin-dashboard/admin-dashboard';
 import { AdminPolicies } from './pages/admin/admin-policies/admin-policies';
 import { AdminClaimsComponent } from './pages/admin/admin-claims/admin-claims';
+import { Users } from './components/admin/users/users';
 
 export const routes: Routes = [
   {
@@ -57,7 +58,7 @@ export const routes: Routes = [
     component: PaymentsPageComponent,
   },
   {
-    path: 'claims/add',          
+    path: 'claims/add',
     component: AddClaimComponent,
     canActivate: [authGuard],
   },
@@ -76,7 +77,7 @@ export const routes: Routes = [
   },
   {
     path: 'purchase/:policyId',
-    component: PurchasePageComponent
+    component: PurchasePageComponent,
   },
   {
     path: 'admin',
@@ -85,8 +86,9 @@ export const routes: Routes = [
     children: [
       { path: '', component: AdminDashboard },
       { path: 'policies', component: AdminPolicies },
-      { path: 'claims', component:AdminClaimsComponent},
-      { path: '**', component: ErrorPage }
+      { path: 'claims', component: AdminClaimsComponent },
+      { path: 'users', component: Users },
+      { path: '**', component: ErrorPage },
     ],
   },
   {
