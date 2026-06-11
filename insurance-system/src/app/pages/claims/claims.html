@@ -1,0 +1,89 @@
+<app-navbar />
+
+<div class="claims-container">
+
+  <div class="claims-header">
+    <h1>My Claims</h1>
+    <p>Track all insurance claims and their status.</p>
+  </div>
+
+  @if (loading()) {
+
+    <div class="empty-state">
+      Loading claims...
+    </div>
+
+  } @else {
+
+    @if (claims().length === 0) {
+
+      <div class="empty-state">
+        No claims submitted yet.
+      </div>
+
+    } @else {
+
+      <div class="claims-list">
+
+        @for (claim of claims(); track claim.id) {
+
+          <div class="claim-card">
+
+            <div class="claim-top">
+
+              <div>
+                <h3>Claim #{{ claim.id }}</h3>
+                <p>
+                  Submitted:
+                  {{ claim.submittedAt }}
+                </p>
+              </div>
+
+              <span
+                class="status-badge"
+                [class]="claim.status">
+
+                {{ getStatusLabel(claim.status) }}
+
+              </span>
+
+            </div>
+
+            <div class="claim-details">
+
+              <div>
+                <strong>Amount</strong>
+                <p>₹{{ claim.claimAmount }}</p>
+              </div>
+
+              <div>
+                <strong>Incident Date</strong>
+                <p>{{ claim.incidentDate }}</p>
+              </div>
+
+            </div>
+
+            <div class="description">
+              {{ claim.description }}
+            </div>
+
+            @if (claim.adminRemarks) {
+
+              <div class="remarks">
+                <strong>Admin Remarks:</strong>
+                {{ claim.adminRemarks }}
+              </div>
+
+            }
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+  }
+
+</div>

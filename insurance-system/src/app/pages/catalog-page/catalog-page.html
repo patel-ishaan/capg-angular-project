@@ -1,0 +1,105 @@
+<app-navbar />
+
+<div class="catalog-container">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="catalog-header">
+      <h1>Policy Catalog</h1>
+      <p>Choose from our range of insurance plans designed for you</p>
+    </div>
+
+    <!-- Loading -->
+    @if (loading$ | async) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading policies...</p>
+      </div>
+    }
+
+    <!-- Policies Grid -->
+    @if (policies$ | async; as policies) {
+      @if (policies.length === 0 && !(loading$ | async)) {
+        <div class="empty-state">
+          <span>📋</span>
+          <p>No policies available at the moment.</p>
+        </div>
+      } @else {
+        <div class="policies-grid">
+          @for (policy of policies; track policy.id) {
+            <div class="policy-card">
+
+              <!-- Card Header -->
+              <div class="card-header" [class]="policy.type">
+                <span class="type-icon">{{ getTypeIcon(policy.type) }}</span>
+                <span class="type-badge">{{ policy.type }}</span>
+              </div>
+
+              <!-- Card Body -->
+              <div class="card-body">
+                <h2 class="policy-name">{{ policy.name }}</h2>
+
+                <div class="policy-stats">
+                  <div class="stat">
+                    <span class="stat-label">Coverage</span>
+                    <span class="stat-value">₹{{ policy.coverageAmount | number }}</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Premium</span>
+                    <span class="stat-value">₹{{ policy.premiumAmount | number }}/yr</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Term</span>
+                    <span class="stat-value">{{ policy.termYears }} yr</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Age</span>
+                    <span class="stat-value">{{ policy.minAge }}–{{ policy.maxAge }}</span>
+                  </div>
+                </div>
+
+                <!-- Benefits -->
+                <div class="section-title">Benefits</div>
+                <ul class="benefits-list">
+                  @for (benefit of policy.benefits; track benefit) {
+                    <li>✅ {{ benefit }}</li>
+                  }
+                </ul>
+
+                <!-- Exclusions -->
+                <div class="section-title">Exclusions</div>
+                <ul class="exclusions-list">
+                  @for (exclusion of policy.exclusions; track exclusion) {
+                    <li>❌ {{ exclusion }}</li>
+                  }
+                </ul>
+              </div>
+
+              <!-- Card Footer -->
+              <div class="card-footer">
+                <button class="btn-compare" (click)="addToCompare(policy)">
+                  + Compare
+                </button>
+                <a class="btn-buy" [routerLink]="['/purchase', policy.id]">
+                  Buy Now
+                </a>
+              </div>
+
+            </div>
+          }
+        </div>
+      }
+    }
+
+    <!-- Comparison Bar -->
+    @if (comparison$ | async; as comparison) {
+      @if (comparison.length > 0) {
+        <div class="comparison-bar">
+          <span>{{ comparison.length }} plan(s) selected for comparison</span>
+          <a routerLink="/compare" class="btn-compare-now">Compare Now →</a>
+        </div>
+      }
+    }
+
+  </div>
+</div>

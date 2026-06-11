@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<div class="payments-page">
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Payments</h1>
+        <p>Review your premium due dates, payment history, and outstanding balances.</p>
+      </div>
+      <a routerLink="/dashboard" class="btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="summary-cards">
+      <div class="card">
+        <span class="card-title">Total Paid</span>
+        <span class="card-value">₹{{ totalPaid() | number:'1.0-0' }}</span>
+      </div>
+      <div class="card">
+        <span class="card-title">Total Outstanding</span>
+        <span class="card-value">₹{{ totalDue() | number:'1.0-0' }}</span>
+      </div>
+      <div class="card">
+        <span class="card-title">Due Payments</span>
+        <span class="card-value">{{ dueCount() }}</span>
+      </div>
+      <div class="card">
+        <span class="card-title">Overdue</span>
+        <span class="card-value">{{ overdueCount() }}</span>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <div class="empty-state">Loading payment history...</div>
+    } @else if (error()) {
+      <div class="error-state">{{ error() }}</div>
+    } @else if (payments().length === 0) {
+      <div class="empty-state">
+        <span>💳</span>
+        <p>No payments found yet.</p>
+        <a routerLink="/catalog" class="btn-primary">Browse Policies</a>
+      </div>
+    } @else {
+      <div class="payments-list">
+        @for (payment of payments(); track payment.id) {
+          <div class="payment-card" [class.overdue]="payment.status === 'overdue'">
+            <div class="payment-row">
+              <div>
+                <h3>Payment ID: {{ payment.id }}</h3>
+                <p class="meta">Method: {{ payment.paymentMethod }}</p>
+              </div>
+              <span class="status {{ payment.status }}">{{ payment.status | titlecase }}</span>
+            </div>
+
+            <div class="payment-details">
+              <div>
+                <span>Amount</span>
+                <strong>₹{{ payment.amount | number:'1.0-0' }}</strong>
+              </div>
+              <div>
+                <span>Due Date</span>
+                <strong>{{ payment.dueDate }}</strong>
+              </div>
+              <div>
+                <span>Paid Date</span>
+                <strong>{{ payment.paidDate || 'Not paid yet' }}</strong>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

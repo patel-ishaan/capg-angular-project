@@ -1,0 +1,96 @@
+.claims-container {
+  min-height: calc(100vh - 65px);
+  padding: 2rem;
+  background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.claims-header {
+  margin-bottom: 2rem;
+}
+
+.claims-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e2a41;
+}
+
+.claims-header p {
+  color: #5a6e8a;
+}
+
+.claims-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.claim-card {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #eef2f6;
+  padding: 1.25rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,.05);
+}
+
+.claim-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.claim-details {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+
+.description {
+  color: #5a6e8a;
+  margin-bottom: .75rem;
+}
+
+.remarks {
+  background: #f8fafc;
+  padding: .75rem;
+  border-radius: 8px;
+}
+
+.status-badge {
+  padding: .4rem .8rem;
+  border-radius: 50px;
+  font-size: .8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.submitted {
+  background: #fff8e1;
+  color: #f57c00;
+}
+
+.status-badge.under_review {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-badge.approved {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.rejected {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.additional_docs_required {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+}
