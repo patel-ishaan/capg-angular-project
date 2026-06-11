@@ -48,6 +48,13 @@
       "password": "ishaan123",
       "role": "customer",
       "id": "qP6KFSsoiqM"
+    },
+    {
+      "name": "dean winchester",
+      "email": "winchester@gmail.com",
+      "password": "password123",
+      "role": "customer",
+      "id": "NN4brRIaYFs"
     }
   ],
   "customerProfiles": [
