@@ -1,0 +1,41 @@
+<div class="admin-container">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+    <div class="sidebar-header">
+      <h2 *ngIf="!isSidebarCollapsed">InsurePro</h2>
+      <h2 *ngIf="isSidebarCollapsed">IP</h2>
+      <button class="toggle-btn" (click)="toggleSidebar()">
+        {{ isSidebarCollapsed ? '→' : '←' }}
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li *ngFor="let item of menuItems">
+          <a [routerLink]="item.path" routerLinkActive="active">
+            <span class="icon">{{ item.icon }}</span>
+            <span class="label" *ngIf="!isSidebarCollapsed">{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer" *ngIf="!isSidebarCollapsed">
+      <button class="logout-btn" (click)="logout()">🔓 Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="main-header">
+      <h1>{{ currentTitle }}</h1>
+      <div class="user-info">
+        <span>Admin User</span>
+        <img src="assets/admin-avatar.png" alt="avatar" class="avatar" />
+      </div>
+    </div>
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
