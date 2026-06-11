@@ -15,6 +15,8 @@ import { PurchasePageComponent } from './pages/purchase-page/purchase-page';
 import { AdminLayout } from './pages/admin-layout/admin-layout';
 import { AdminGuard } from './guards/auth-isAdmin.guard';
 import { AdminDashboard } from './components/admin/admin-dashboard/admin-dashboard';
+import { AdminPolicies } from './pages/admin/admin-policies/admin-policies';
+
 export const routes: Routes = [
   {
     path: '',
@@ -39,59 +41,47 @@ export const routes: Routes = [
       },
     ],
   },
-
   {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [authGuard],
   },
-
   {
     path: 'catalog',
     component: CatalogPageComponent,
   },
-
   {
     path: 'payments',
     component: PaymentsPageComponent,
   },
-
   {
     path: 'claims',
     component: ClaimsPageComponent,
   },
-
   {
     path: 'search',
     component: SearchPageComponent,
   },
-
   {
     path: 'policies',
     component: CatalogPageComponent,
   },
   {
-    path:'purchase/:policyId',
-    component:PurchasePageComponent
+    path: 'purchase/:policyId',
+    component: PurchasePageComponent
   },
   {
     path: 'admin',
     component: AdminLayout,
     canActivate: [authGuard, AdminGuard],
     children: [
-      {
-        path: '',
-        component: AdminDashboard,
-      },
-      {
-        path: '**',
-        component: ErrorPage,
-      },
+      { path: '', component: AdminDashboard },
+      { path: 'policies', component: AdminPolicies },
+      { path: '**', component: ErrorPage }
     ],
   },
   {
     path: '**',
     redirectTo: 'error',
   },
-  
 ];

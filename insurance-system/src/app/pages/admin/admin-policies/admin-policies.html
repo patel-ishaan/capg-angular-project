@@ -1,0 +1,162 @@
+<div class="admin-policies">
+
+  <div class="page-header">
+    <div>
+      <h2>Policy Management</h2>
+      <p>Create, edit, activate or deactivate insurance policies.</p>
+    </div>
+    <button class="btn-primary" (click)="openAddForm()">+ Add Policy</button>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading policies...</p>
+    </div>
+  } @else if (error() && !showForm()) {
+    <div class="error-state">{{ error() }}</div>
+  } @else {
+    <div class="policies-table-wrapper">
+      <table class="policies-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Coverage</th>
+            <th>Premium/yr</th>
+            <th>Term</th>
+            <th>Age Range</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (policy of policies(); track policy.id) {
+            <tr [class.inactive]="!policy.isActive">
+              <td>{{ policy.name }}</td>
+              <td><span class="type-badge" [class]="policy.type">{{ policy.type }}</span></td>
+              <td>₹{{ policy.coverageAmount | number }}</td>
+              <td>₹{{ policy.premiumAmount | number }}</td>
+              <td>{{ policy.termYears }} yr</td>
+              <td>{{ policy.minAge }}–{{ policy.maxAge }}</td>
+              <td>
+                <span class="status-badge" [class.active]="policy.isActive" [class.inactive]="!policy.isActive">
+                  {{ policy.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              <td class="actions">
+                <button class="btn-edit" (click)="openEditForm(policy)">✏️ Edit</button>
+                <button class="btn-toggle" (click)="toggleActive(policy)">
+                  {{ policy.isActive ? '🔴 Deactivate' : '🟢 Activate' }}
+                </button>
+                <button class="btn-delete" (click)="deletePolicy(policy)">🗑️ Delete</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- Add/Edit Form Modal -->
+  @if (showForm()) {
+    <div class="modal-overlay" (click)="closeForm()">
+      <div class="modal" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+          <h3>{{ editingPolicy() ? 'Edit Policy' : 'Add New Policy' }}</h3>
+          <button class="btn-close" (click)="closeForm()">✕</button>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Policy Name</label>
+              <input type="text" formControlName="name" placeholder="e.g. HealthGuard Basic" />
+              @if (form.get('name')?.touched && form.get('name')?.errors?.['required']) {
+                <div class="error-msg">Name is required</div>
+              }
+            </div>
+            <div class="form-group">
+              <label>Type</label>
+              <select formControlName="type">
+                <option value="">Select type</option>
+                <option value="health">Health</option>
+                <option value="life">Life</option>
+                <option value="vehicle">Vehicle</option>
+              </select>
+              @if (form.get('type')?.touched && form.get('type')?.errors?.['required']) {
+                <div class="error-msg">Type is required</div>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Coverage Amount (₹)</label>
+              <input type="number" formControlName="coverageAmount" />
+            </div>
+            <div class="form-group">
+              <label>Premium Amount (₹/yr)</label>
+              <input type="number" formControlName="premiumAmount" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Term (Years)</label>
+              <input type="number" formControlName="termYears" />
+            </div>
+            <div class="form-group">
+              <label>Min Age</label>
+              <input type="number" formControlName="minAge" />
+            </div>
+            <div class="form-group">
+              <label>Max Age</label>
+              <input type="number" formControlName="maxAge" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Benefits <span class="hint">(comma separated)</span></label>
+            <textarea formControlName="benefits" rows="3"
+                      placeholder="Hospitalization cover, Day care procedures, ..."></textarea>
+            @if (form.get('benefits')?.touched && form.get('benefits')?.errors?.['required']) {
+              <div class="error-msg">At least one benefit is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label>Exclusions <span class="hint">(comma separated)</span></label>
+            <textarea formControlName="exclusions" rows="3"
+                      placeholder="Cosmetic surgery, Self-inflicted injuries, ..."></textarea>
+            @if (form.get('exclusions')?.touched && form.get('exclusions')?.errors?.['required']) {
+              <div class="error-msg">At least one exclusion is required</div>
+            }
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" formControlName="isActive" />
+              Active (visible to customers)
+            </label>
+          </div>
+
+          @if (error()) {
+            <div class="alert-error">{{ error() }}</div>
+          }
+
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" (click)="closeForm()">Cancel</button>
+            <button type="submit" class="btn-primary" [disabled]="submitting()">
+              {{ submitting() ? 'Saving...' : editingPolicy() ? 'Update Policy' : 'Create Policy' }}
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  }
+
+</div>
