@@ -16,7 +16,7 @@ export class AdminLayout {
     { path: '/admin/claims', icon: '📋', label: 'Claims Review' },
     { path: '/admin/policies', icon: '📄', label: 'Policy Management' },
     { path: '/admin/payments', icon: '💰', label: 'Payment Overview' },
-    { path: '/admin/customers', icon: '👥', label: 'Customer List' },
+    { path: '/admin/users', icon: '👥', label: 'Users List' },
   ];
 
   isSidebarCollapsed = false;

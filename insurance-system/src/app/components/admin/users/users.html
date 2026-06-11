@@ -1,0 +1,159 @@
+<div class="admin-users">
+  <div class="page-header">
+    <div>
+      <h2>Customer Management</h2>
+      <p>View, manage and monitor all registered customers.</p>
+    </div>
+    <button class="btn-primary" (click)="refreshUsers()">⟳ Refresh</button>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>🔍 Search by name</label>
+      <input
+        type="text"
+        placeholder="Type name..."
+        [ngModel]="searchName()"
+        (ngModelChange)="searchName.set($event)"
+      />
+    </div>
+    <div class="filter-group">
+      <button class="btn-clear" (click)="searchName.set('')">Clear Filters</button>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading users...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-state">{{ error() }}</div>
+  } @else {
+    <div class="users-table-wrapper">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of filteredUsers(); track user.id) {
+            <tr>
+              <td>{{ user?.id }}</td>
+              <td>{{ user?.name }}</td>
+              <td>{{ user?.email }}</td>
+              <td>
+                <span class="role-badge" [class.admin]="user?.role === 'admin'">
+                  {{ user?.role }}
+                </span>
+              </td>
+              <td class="actions">
+                <button class="btn-view" (click)="viewDetails(user)">👁️ View</button>
+                <!-- <button class="btn-role-toggle" (click)="toggleRole(user)">
+                  {{ user.role === 'customer' ? '🔁 Make Admin' : '🔁 Make Customer' }}
+                </button> -->
+                <button class="btn-delete" (click)="deleteUser(user)">🗑️ Delete</button>
+              </td>
+            </tr>
+
+            <tr></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (selectedUser()) {
+    @let user = selectedUser();
+    <div class="modal-overlay" (click)="closeModal()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>User Details</h3>
+          <button class="btn-close" (click)="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="detail-section">
+            <h4>Personal Information</h4>
+            <div class="detail-row"><strong>ID:</strong> {{ user?.id }}</div>
+            <div class="detail-row"><strong>Name:</strong> {{ user?.name }}</div>
+            <div class="detail-row"><strong>Email:</strong> {{ user?.email }}</div>
+            <div class="detail-row"><strong>Role:</strong> {{ user?.role }}</div>
+          </div>
+
+          @if (user?.role === 'customer') {
+            <!-- Address -->
+            @let address = getAddress(user);
+            @if (address) {
+              <div class="detail-section">
+                <h4>Address</h4>
+                <div class="detail-row">
+                  {{ address.street }}, {{ address.city }}, {{ address.state }} -
+                  {{ address.zipCode }}
+                </div>
+                <div class="detail-row">Country: {{ address.country }}</div>
+              </div>
+            }
+
+            <!-- Communication Preferences -->
+            @let commPref = getCommunicationPref(user);
+            @if (commPref) {
+              <div class="detail-section">
+                <h4>Communication Preferences</h4>
+                <div class="detail-row">
+                  📧 Email Alerts: {{ commPref.emailAlerts ? 'Yes' : 'No' }}
+                </div>
+                <div class="detail-row">
+                  📱 SMS Reminders: {{ commPref.smsReminders ? 'Yes' : 'No' }}
+                </div>
+              </div>
+            }
+
+            <!-- Nominees -->
+            @let nominees = getNominees(user);
+            @if (nominees.length) {
+              <div class="detail-section">
+                <h4>Nominees</h4>
+                <table class="nominees-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Relationship</th>
+                      <th>Percentage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (nom of nominees; track nom.id) {
+                      <tr>
+                        <td>{{ nom.fullName }}</td>
+                        <td>{{ nom.relationship }}</td>
+                        <td>{{ nom.percentage }}%</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            } @else {
+              <div class="detail-section">
+                <h4>Nominees</h4>
+                <p>No nominees added.</p>
+              </div>
+            }
+          } @else {
+            <div class="detail-section">
+              <h4>Admin Information</h4>
+              <p>No profile data for admin users.</p>
+            </div>
+          }
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
