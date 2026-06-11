@@ -12,6 +12,9 @@ import { ErrorPage } from './pages/error-page/error-page';
 import { authRedircetGuard } from './guards/auth-redirect.guard';
 import { authGuard } from './guards/auth.guard';
 import { ComparePoliciesComponent } from './components/compare-policies/compare-policies';
+import { AdminLayout } from './pages/admin-layout/admin-layout';
+import { AdminDashboard } from './components/admin/admin-dashboard/admin-dashboard';
+import { AdminGuard } from './guards/auth-isAdmin.guard';
 
 export const routes: Routes = [
   {
@@ -64,14 +67,30 @@ export const routes: Routes = [
     component: SearchPageComponent,
   },
 
-    {
+  {
     path: 'policies/compare',
     component: ComparePoliciesComponent,
-    },
+  },
 
   {
     path: 'policies',
     component: CatalogPageComponent,
+  },
+
+  {
+    path: 'admin',
+    component: AdminLayout,
+    canActivate: [authGuard, AdminGuard],
+    children: [
+      {
+        path: '',
+        component: AdminDashboard,
+      },
+      {
+        path: '**',
+        component: ErrorPage,
+      },
+    ],
   },
 
   {
