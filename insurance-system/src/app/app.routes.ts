@@ -12,7 +12,9 @@ import { ErrorPage } from './pages/error-page/error-page';
 import { authRedircetGuard } from './guards/auth-redirect.guard';
 import { authGuard } from './guards/auth.guard';
 import { PurchasePageComponent } from './pages/purchase-page/purchase-page';
-
+import { AdminLayout } from './pages/admin-layout/admin-layout';
+import { AdminGuard } from './guards/auth-isAdmin.guard';
+import { AdminDashboard } from './components/admin/admin-dashboard/admin-dashboard';
 export const routes: Routes = [
   {
     path: '',
@@ -71,6 +73,21 @@ export const routes: Routes = [
   {
     path:'purchase/:policyId',
     component:PurchasePageComponent
+  },
+  {
+    path: 'admin',
+    component: AdminLayout,
+    canActivate: [authGuard, AdminGuard],
+    children: [
+      {
+        path: '',
+        component: AdminDashboard,
+      },
+      {
+        path: '**',
+        component: ErrorPage,
+      },
+    ],
   },
   {
     path: '**',
