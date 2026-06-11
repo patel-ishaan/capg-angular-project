@@ -10,32 +10,20 @@
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" [class.show]="mobileMenuOpen">
-<<<<<<< HEAD
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Home</a>
+      <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">Dashboard</a>
       <a routerLink="/catalog" routerLinkActive="active" (click)="closeMenu()">Policies</a>
-=======
-      <a
-        routerLink="/dashboard"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="closeMenu()"
-        >Dashboard</a
-      >
-      <a routerLink="/policies" routerLinkActive="active" (click)="closeMenu()">Policies</a>
->>>>>>> 9173a28201fb35f04011c6bf4cc9b958bdbc822b
       <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
       <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
 
       <div class="nav-buttons">
         @if (!loginService.isAuthenticated()) {
           <a class="btn-outline" routerLink="/login" (click)="closeMenu()"> Login </a>
-
           <a class="btn-primary" routerLink="/register" (click)="closeMenu()"> Register </a>
         } @else {
           <a class="btn-outline" routerLink="/dashboard" (click)="closeMenu()">
             {{ loginService.currentUser()?.name }}
           </a>
-
           <button class="btn-primary" (click)="logout(); closeMenu()">Logout</button>
         }
       </div>

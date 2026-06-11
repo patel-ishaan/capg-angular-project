@@ -17,6 +17,7 @@ import { Hero } from '../../components/hero/hero';
     NavbarComponent,
     Footer,
     RouterOutlet,
+    Hero
   ],
   templateUrl: './landing-page.html',
   styleUrls: ['./landing-page.css'],
