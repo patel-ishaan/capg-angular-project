@@ -377,7 +377,6 @@
       ],
       "status": "active",
       "policyDocumentUrl": "/docs/pur5-policy.pdf"
-<<<<<<< HEAD
     },
     {
       "policyId": "p2",
@@ -426,8 +425,6 @@
       "status": "active",
       "policyDocumentUrl": "/docs/p2-policy.pdf",
       "id": "vlLH7vYhJsE"
-=======
->>>>>>> 40c4d94904c29e5cbf37cb347a6279824f735157
     }
   ],
   "payments": [
@@ -470,7 +467,6 @@
       "paidDate": null,
       "status": "overdue",
       "paymentMethod": "UPI"
-<<<<<<< HEAD
     },
     {
       "purchaseId": "7vX0DynI81I",
@@ -501,8 +497,6 @@
       "status": "paid",
       "paymentMethod": "UPI",
       "id": "J9WHbRsbtuM"
-=======
->>>>>>> 40c4d94904c29e5cbf37cb347a6279824f735157
     }
   ],
   "claims": [
