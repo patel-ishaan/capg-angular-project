@@ -21,6 +21,7 @@ import { AdminDashboard } from './components/admin/admin-dashboard/admin-dashboa
 import { AdminPolicies } from './pages/admin/admin-policies/admin-policies';
 import { AdminClaimsComponent } from './pages/admin/admin-claims/admin-claims';
 import { Users } from './components/admin/users/users';
+import { AdminPaymentsComponent } from './pages/admin/admin-payments/admin-payments';
 
 export const routes: Routes = [
   {
@@ -102,6 +103,7 @@ export const routes: Routes = [
       { path: 'policies', component: AdminPolicies },
       { path: 'claims', component: AdminClaimsComponent },
       { path: 'users', component: Users },
+      { path: 'payments', component: AdminPaymentsComponent },
       { path: '**', component: ErrorPage },
     ],
   },
