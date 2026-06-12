@@ -7,13 +7,12 @@ export const authRedircetGuard = () => {
   const router = inject(Router);
 
   if (loginService.isAuthenticated()) {
-    const role = loginService.currentUser()?.role;
-
-    if (role === 'admin') {
-      return router.createUrlTree(['/admin']);
+    if (loginService.currentUser?.()?.role === 'admin') {
+      router.navigate(['/admin']);
+    } else {
+      router.navigate(['/dashboard']);
     }
-
-    return router.createUrlTree(['/dashboard']);
+    return false;
   }
 
   return true;

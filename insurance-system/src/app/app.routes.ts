@@ -88,16 +88,19 @@ export const routes: Routes = [
   {
     path: 'policies',
     component: CatalogPageComponent,
+    canActivate: [authGuard],
   },
 
   {
     path: 'policies/compare',
     component: ComparePoliciesComponent,
+    canActivate: [authGuard],
   },
 
   {
     path: 'purchase/:policyId',
     component: PurchasePageComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'admin',
