@@ -198,11 +198,7 @@
       "termYears": 1,
       "minAge": 18,
       "maxAge": 60,
-      "benefits": [
-        "Hospitalization cover",
-        "Day care procedures",
-        "Pre & post hospitalization"
-      ],
+      "benefits": ["Hospitalization cover", "Day care procedures", "Pre & post hospitalization"],
       "exclusions": [
         "Cosmetic surgery",
         "Self-inflicted injuries",
@@ -220,16 +216,8 @@
       "termYears": 20,
       "minAge": 21,
       "maxAge": 55,
-      "benefits": [
-        "Death benefit",
-        "Terminal illness cover",
-        "Tax benefit under 80C"
-      ],
-      "exclusions": [
-        "Suicide within 1 year",
-        "Death due to war",
-        "Aviation accidents"
-      ],
+      "benefits": ["Death benefit", "Terminal illness cover", "Tax benefit under 80C"],
+      "exclusions": ["Suicide within 1 year", "Death due to war", "Aviation accidents"],
       "isActive": true
     },
     {
@@ -247,11 +235,7 @@
         "Roadside assistance",
         "Zero depreciation"
       ],
-      "exclusions": [
-        "Drunk driving",
-        "Invalid license",
-        "Wear and tear"
-      ],
+      "exclusions": ["Drunk driving", "Invalid license", "Wear and tear"],
       "isActive": true
     },
     {
@@ -270,11 +254,7 @@
         "International coverage",
         "No claim bonus"
       ],
-      "exclusions": [
-        "Cosmetic surgery",
-        "Self-inflicted injuries",
-        "Dental (unless accident)"
-      ],
+      "exclusions": ["Cosmetic surgery", "Self-inflicted injuries", "Dental (unless accident)"],
       "isActive": true
     },
     {
@@ -286,18 +266,22 @@
       "termYears": 30,
       "minAge": 25,
       "maxAge": 50,
-      "benefits": [
-        "Lifetime coverage",
-        "Maturity benefit",
-        "Loan facility",
-        "Bonus accumulation"
-      ],
-      "exclusions": [
-        "Suicide within 2 years",
-        "Criminal activity",
-        "Drug abuse"
-      ],
+      "benefits": ["Lifetime coverage", "Maturity benefit", "Loan facility", "Bonus accumulation"],
+      "exclusions": ["Suicide within 2 years", "Criminal activity", "Drug abuse"],
       "isActive": true
+    },
+    {
+      "name": "testPolicy",
+      "type": "life",
+      "coverageAmount": 11500000,
+      "premiumAmount": 101,
+      "termYears": 9,
+      "minAge": 18,
+      "maxAge": 65,
+      "benefits": ["money after dead"],
+      "exclusions": ["already dead"],
+      "isActive": true,
+      "id": "AsyQ7z9RHCg"
     }
   ],
   "purchases": [
@@ -452,22 +436,6 @@
       "status": "active",
       "policyDocumentUrl": "/docs/p3-policy.pdf",
       "id": "Nx-BkuX-H9I"
-    },
-    {
-      "policyId": "p5",
-      "customerId": "u1",
-      "purchaseDate": "2026-06-12T04:42:53.291Z",
-      "startDate": "2026-06-12T04:42:53.291Z",
-      "endDate": "2056-06-12T04:42:53.291Z",
-      "selectedNominees": [
-        {
-          "nomineeId": "nom_1781239373291_0",
-          "percentage": 100
-        }
-      ],
-      "status": "active",
-      "policyDocumentUrl": "/docs/p5-policy.pdf",
-      "id": "LJ1Vq-2V0Hk"
     }
   ],
   "payments": [
@@ -540,16 +508,6 @@
       "status": "paid",
       "paymentMethod": "UPI",
       "id": "_wOjjvQ01kA"
-    },
-    {
-      "purchaseId": "LJ1Vq-2V0Hk",
-      "customerId": "u1",
-      "amount": 25000,
-      "dueDate": "2056-06-12",
-      "paidDate": "2026-06-12",
-      "status": "paid",
-      "paymentMethod": "UPI",
-      "id": "UQyVhEH_J20"
     }
   ],
   "claims": [

@@ -2,7 +2,6 @@
 
 <div class="dashboard-container">
   <div class="container">
-
     <!-- Welcome -->
     <div class="welcome-section">
       <h1>Welcome back, {{ currentUser()?.name }} 👋</h1>
@@ -88,19 +87,23 @@
               <div class="policy-info">
                 <div class="policy-name">{{ purchase.policy?.name }}</div>
                 <div class="policy-meta">
-                  <span class="badge" [class]="purchase.policy?.type">{{ purchase.policy?.type }}</span>
-                  <span class="policy-dates">{{ purchase.startDate }} → {{ purchase.endDate }}</span>
+                  <span class="badge" [class]="purchase.policy?.type">{{
+                    purchase.policy?.type
+                  }}</span>
+                  <span class="policy-dates"
+                    >{{ purchase.startDate }} → {{ purchase.endDate }}</span
+                  >
                 </div>
               </div>
               <div class="policy-right">
                 <span class="status-badge" [class]="purchase.status">{{ purchase.status }}</span>
                 <span class="coverage">₹{{ purchase.policy?.coverageAmount | number }}</span>
+                <button (click)="downloadPolicyReport(purchase.policyId)">📄 Policy Report</button>
               </div>
             </div>
           }
         </div>
       }
     </div>
-
   </div>
 </div>
