@@ -416,6 +416,22 @@
       "status": "active",
       "policyDocumentUrl": "/docs/p2-policy.pdf",
       "id": "Pyq-6wQbewc"
+    },
+    {
+      "policyId": "p2",
+      "customerId": "u1",
+      "purchaseDate": "2026-06-11T16:21:19.893Z",
+      "startDate": "2026-06-11T16:21:19.893Z",
+      "endDate": "2046-06-11T16:21:19.893Z",
+      "selectedNominees": [
+        {
+          "nomineeId": "nom_1781194879893_0",
+          "percentage": 100
+        }
+      ],
+      "status": "active",
+      "policyDocumentUrl": "/docs/p2-policy.pdf",
+      "id": "vlLH7vYhJsE"
     }
   ],
   "payments": [
@@ -478,6 +494,16 @@
       "status": "paid",
       "paymentMethod": "Credit Card",
       "id": "nh7ll2QXeRg"
+    },
+    {
+      "purchaseId": "vlLH7vYhJsE",
+      "customerId": "u1",
+      "amount": 12000,
+      "dueDate": "2046-06-11",
+      "paidDate": "2026-06-11",
+      "status": "paid",
+      "paymentMethod": "UPI",
+      "id": "J9WHbRsbtuM"
     }
   ],
   "claims": [

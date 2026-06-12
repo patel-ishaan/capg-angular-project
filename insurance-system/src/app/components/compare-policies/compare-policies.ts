@@ -16,6 +16,7 @@ import { Policy } from '../../models/policy.model';
   templateUrl: './compare-policies.html',
   styleUrl: './compare-policies.css'
 })
+
 export class ComparePoliciesComponent implements OnInit {
   private store = inject(Store);
 
