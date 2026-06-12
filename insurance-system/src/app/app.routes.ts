@@ -13,6 +13,8 @@ import { ErrorPage } from './pages/error-page/error-page';
 import { authRedircetGuard } from './guards/auth-redirect.guard';
 import { authGuard } from './guards/auth.guard';
 import { PurchasePageComponent } from './pages/purchase-page/purchase-page';
+import { ProfileComponent } from './components/profile/profile';
+import { ComparePoliciesComponent } from './components/compare-policies/compare-policies';
 import { AdminLayout } from './pages/admin-layout/admin-layout';
 import { AdminGuard } from './guards/auth-isAdmin.guard';
 import { AdminDashboard } from './components/admin/admin-dashboard/admin-dashboard';
@@ -50,6 +52,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [authGuard],
+  },
+
+  {
     path: 'catalog',
     component: CatalogPageComponent,
   },
@@ -75,6 +83,12 @@ export const routes: Routes = [
     path: 'policies',
     component: CatalogPageComponent,
   },
+
+  {
+  path: 'policies/compare',
+  component: ComparePoliciesComponent,
+  },
+  
   {
     path: 'purchase/:policyId',
     component: PurchasePageComponent,
