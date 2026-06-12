@@ -1,0 +1,44 @@
+<div class="admin-payments-container">
+  <h2>Payments Overview</h2>
+
+  @if (isLoading) {
+    <p>Loading payments data...</p>
+  }
+
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  }
+
+  @if (!isLoading && payments.length > 0) {
+    <table class="payments-table">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Policy ID</th>
+          <th>Customer ID</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (payment of payments; track payment.id) {
+          <tr>
+            <td>{{ payment.id }}</td>
+            <td>{{ payment.purchaseId }}</td>
+            <td>{{ payment.customerId }}</td>
+            <td>{{ payment.amount | currency:'INR' }}</td> 
+            <td>{{ payment.paidDate | date:'mediumDate' }}</td>
+            <td>
+              <span class="status-badge" [class]="payment.status.toLowerCase()">
+                {{ payment.status }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else if (!isLoading && payments.length === 0) {
+    <p>No payments found in the system.</p>
+  }
+</div>

@@ -10,7 +10,13 @@ export class PaymentService {
   private BASE_URL = 'http://localhost:3000';
   private http = inject(HttpClient);
 
+  // Used by the Customer Payments Page
   getPaymentsByCustomer(customerId: string): Observable<Payment[]> {
     return this.http.get<Payment[]>(`${this.BASE_URL}/payments?customerId=${customerId}`);
+  }
+
+  // Used by the Admin Payments Dashboard
+  getAllPayments(): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${this.BASE_URL}/payments`);
   }
 }
