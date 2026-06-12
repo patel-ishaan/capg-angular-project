@@ -9,9 +9,7 @@ export class PolicyReportsService {
   private apiUrl = 'http://localhost:3000';
   private pdfMake: any = null;
 
-  constructor(private http: HttpClient) {
-    this.loadPdfMake();
-  }
+  constructor(private http: HttpClient) {}
 
   private async loadPdfMake() {
     if (!this.pdfMake) {

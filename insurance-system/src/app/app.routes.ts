@@ -36,10 +36,12 @@ export const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+        canActivate: [authRedircetGuard],
       },
       {
         path: 'register',
         component: RegisterComponent,
+        canActivate: [authRedircetGuard],
       },
       {
         path: 'error',
@@ -65,6 +67,7 @@ export const routes: Routes = [
   {
     path: 'payments',
     component: PaymentsPageComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'claims/add',
@@ -75,10 +78,12 @@ export const routes: Routes = [
   {
     path: 'claims',
     component: ClaimsPageComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'search',
     component: SearchPageComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'policies',
@@ -86,10 +91,10 @@ export const routes: Routes = [
   },
 
   {
-  path: 'policies/compare',
-  component: ComparePoliciesComponent,
+    path: 'policies/compare',
+    component: ComparePoliciesComponent,
   },
-  
+
   {
     path: 'purchase/:policyId',
     component: PurchasePageComponent,
