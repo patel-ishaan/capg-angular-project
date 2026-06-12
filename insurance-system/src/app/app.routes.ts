@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard';
 import { CatalogPageComponent } from './pages/catalog-page/catalog-page';
 import { PaymentsPageComponent } from './pages/payments/payments';
 import { ClaimsPageComponent } from './pages/claims/claims';
+import { AddClaimComponent } from './pages/claims/add-claim/add-claim';
 import { SearchPageComponent } from './pages/search-page/search-page';
 import { Hero } from './components/hero/hero';
 import { ErrorPage } from './pages/error-page/error-page';
@@ -14,6 +15,12 @@ import { authGuard } from './guards/auth.guard';
 import { PurchasePageComponent } from './pages/purchase-page/purchase-page';
 import { ProfileComponent } from './components/profile/profile';
 import { ComparePoliciesComponent } from './components/compare-policies/compare-policies';
+import { AdminLayout } from './pages/admin-layout/admin-layout';
+import { AdminGuard } from './guards/auth-isAdmin.guard';
+import { AdminDashboard } from './components/admin/admin-dashboard/admin-dashboard';
+import { AdminPolicies } from './pages/admin/admin-policies/admin-policies';
+import { AdminClaimsComponent } from './pages/admin/admin-claims/admin-claims';
+import { Users } from './components/admin/users/users';
 
 export const routes: Routes = [
   {
@@ -39,13 +46,11 @@ export const routes: Routes = [
       },
     ],
   },
-
   {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [authGuard],
   },
-
   {
     path: 'profile',
     component: ProfileComponent,
@@ -56,22 +61,24 @@ export const routes: Routes = [
     path: 'catalog',
     component: CatalogPageComponent,
   },
-
   {
     path: 'payments',
     component: PaymentsPageComponent,
+  },
+  {
+    path: 'claims/add',
+    component: AddClaimComponent,
+    canActivate: [authGuard],
   },
 
   {
     path: 'claims',
     component: ClaimsPageComponent,
   },
-
   {
     path: 'search',
     component: SearchPageComponent,
   },
-
   {
     path: 'policies',
     component: CatalogPageComponent,
@@ -83,12 +90,23 @@ export const routes: Routes = [
   },
   
   {
-    path:'purchase/:policyId',
-    component:PurchasePageComponent
+    path: 'purchase/:policyId',
+    component: PurchasePageComponent,
+  },
+  {
+    path: 'admin',
+    component: AdminLayout,
+    canActivate: [authGuard, AdminGuard],
+    children: [
+      { path: '', component: AdminDashboard },
+      { path: 'policies', component: AdminPolicies },
+      { path: 'claims', component: AdminClaimsComponent },
+      { path: 'users', component: Users },
+      { path: '**', component: ErrorPage },
+    ],
   },
   {
     path: '**',
     redirectTo: 'error',
   },
-  
 ];

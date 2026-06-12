@@ -5,20 +5,13 @@
       "email": "rajesh.kumar@example.com",
       "password": "password123",
       "name": "Rajesh Kumar",
-      "role": "customer"
+      "role": "admin"
     },
     {
       "id": "u2",
       "email": "priya.sharma@example.com",
       "password": "password123",
       "name": "Priya Sharma",
-      "role": "customer"
-    },
-    {
-      "id": "u3",
-      "email": "amit.verma@example.com",
-      "password": "password123",
-      "name": "Amit Verma",
       "role": "customer"
     },
     {
@@ -116,7 +109,7 @@
     },
     {
       "id": "cp3",
-      "userId": "u3",
+      "userId": null,
       "dateOfBirth": "1992-12-10",
       "address": {
         "street": "8 Civil Lines",
@@ -384,6 +377,7 @@
       ],
       "status": "active",
       "policyDocumentUrl": "/docs/pur5-policy.pdf"
+<<<<<<< HEAD
     },
     {
       "policyId": "p2",
@@ -432,6 +426,8 @@
       "status": "active",
       "policyDocumentUrl": "/docs/p2-policy.pdf",
       "id": "vlLH7vYhJsE"
+=======
+>>>>>>> 40c4d94904c29e5cbf37cb347a6279824f735157
     }
   ],
   "payments": [
@@ -474,6 +470,7 @@
       "paidDate": null,
       "status": "overdue",
       "paymentMethod": "UPI"
+<<<<<<< HEAD
     },
     {
       "purchaseId": "7vX0DynI81I",
@@ -504,6 +501,8 @@
       "status": "paid",
       "paymentMethod": "UPI",
       "id": "J9WHbRsbtuM"
+=======
+>>>>>>> 40c4d94904c29e5cbf37cb347a6279824f735157
     }
   ],
   "claims": [
@@ -548,10 +547,10 @@
           "verified": false
         }
       ],
-      "status": "under_review",
+      "status": "approved",
       "adminRemarks": "",
       "submittedAt": "2024-04-05",
-      "updatedAt": "2024-04-10"
+      "updatedAt": "2026-06-11T19:02:29.588Z"
     },
     {
       "id": "cl3",

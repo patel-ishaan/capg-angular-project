@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar';
 import { ClaimService } from '../../services/claim/claim.service';
 import { LoginService } from '../../services/auth/login-service';
@@ -11,7 +11,8 @@ import { Claim } from '../../models/claim.model';
   standalone: true,
   imports: [
     CommonModule,
-    NavbarComponent
+    NavbarComponent,
+    RouterLink
   ],
   templateUrl: './claims.html',
   styleUrl: './claims.css'

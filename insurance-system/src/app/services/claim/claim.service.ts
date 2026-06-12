@@ -12,6 +12,7 @@ export class ClaimService {
 
   private claimsUrl = 'http://localhost:3000/claims';
   private purchasesUrl = 'http://localhost:3000/purchases';
+  private baseUrl = 'http://localhost:3000';
 
   getClaimsForCustomer(userId: string): Observable<Claim[]> {
 
@@ -45,4 +46,23 @@ export class ClaimService {
       `${this.claimsUrl}/${id}`
     );
   }
+
+  submitClaim(claim: Partial<Claim>): Observable<Claim> {
+  return this.http.post<Claim>(this.claimsUrl, claim);
+}
+getAllClaims() {
+  return this.http.get<Claim[]>(
+    `${this.baseUrl}/claims`
+  );
+}
+
+updateClaim(
+  id: string,
+  data: Partial<Claim>
+) {
+  return this.http.patch<Claim>(
+    `${this.baseUrl}/claims/${id}`,
+    data
+  );
+}
 }

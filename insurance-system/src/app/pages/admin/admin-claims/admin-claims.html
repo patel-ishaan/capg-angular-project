@@ -1,0 +1,231 @@
+<div class="claims-container">
+
+  <div class="page-header">
+    <h1>Claims Review</h1>
+    <p>Review, verify and manage all claims.</p>
+  </div>
+
+  <!-- Stats -->
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <h3>{{ totalClaims() }}</h3>
+      <p>Total Claims</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>{{ pendingClaims() }}</h3>
+      <p>Pending Review</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>{{ approvedClaims() }}</h3>
+      <p>Approved</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>{{ rejectedClaims() }}</h3>
+      <p>Rejected</p>
+    </div>
+
+  </div>
+
+  <!-- Search + Filter -->
+
+  <div class="filters">
+
+    <input
+      type="text"
+      placeholder="Search claim id or purchase id..."
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+    />
+
+    <select
+      [ngModel]="selectedStatus()"
+      (ngModelChange)="selectedStatus.set($event)"
+    >
+      <option value="all">All Statuses</option>
+
+      @for (status of statuses; track status) {
+
+        <option [value]="status">
+          {{ getStatusLabel(status) }}
+        </option>
+
+      }
+
+    </select>
+
+  </div>
+
+  @if (loading()) {
+
+    <div class="empty-state">
+      Loading claims...
+    </div>
+
+  } @else {
+
+    <div class="claims-list">
+
+      @for (
+        claim of filteredClaims();
+        track claim.id
+      ) {
+
+        <div class="claim-card">
+
+          <div class="claim-top">
+
+            <div>
+
+              <h3>
+                Claim #{{ claim.id }}
+              </h3>
+
+              <p>
+                Purchase:
+                {{ claim.purchaseId }}
+              </p>
+
+            </div>
+
+            <select
+             class="status-select"
+             [ngModel]="claim.status"
+             (ngModelChange)="updateStatus(claim, $event)"
+            >
+
+              @for (
+                status of statuses;
+                track status
+              ) {
+
+                <option [value]="status">
+
+                  {{ getStatusLabel(status) }}
+
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+          <div class="claim-details">
+
+            <div>
+
+              <strong>Amount</strong>
+
+              <p>
+                ₹{{ claim.claimAmount }}
+              </p>
+
+            </div>
+
+            <div>
+
+              <strong>Incident Date</strong>
+
+              <p>
+                {{ claim.incidentDate }}
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="description">
+            {{ claim.description }}
+          </div>
+
+          <div class="documents">
+
+            <h4>
+              Documents
+            </h4>
+
+            @for (
+              doc of claim.documents;
+              track doc.type;
+              let i = $index
+            ) {
+
+              <div class="doc-row">
+
+                <span>
+                  {{ doc.type }}
+                </span>
+
+                <label>
+
+                  <input
+                    type="checkbox"
+                    [checked]="doc.verified"
+                    (change)="toggleDocument(
+                      claim,
+                      i
+                    )"
+                  />
+
+                  Verified
+
+                </label>
+
+              </div>
+
+            }
+
+          </div>
+
+          <div class="remarks">
+
+            <h4>
+              Admin Remarks
+            </h4>
+
+            <textarea
+              class="remarks-textarea"
+              rows="3"
+              #remarksBox
+            >{{ claim.adminRemarks }}</textarea>
+
+            <button
+              class="save-btn"
+              (click)="saveRemarks(
+                claim,
+                remarksBox.value
+              )"
+            >
+              Save Remarks
+            </button>
+
+          </div>
+
+          <div class="timeline">
+
+            <span>
+              Submitted:
+              {{ claim.submittedAt }}
+            </span>
+
+            <span>
+              Updated:
+              {{ claim.updatedAt }}
+            </span>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>
