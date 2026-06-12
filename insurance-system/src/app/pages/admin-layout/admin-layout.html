@@ -13,7 +13,7 @@
       <ul>
         <li *ngFor="let item of menuItems">
           <a [routerLink]="item.path" routerLinkActive="active">
-            <span class="icon">{{ item.icon }}</span>
+            <!-- <span class="icon">{{ item.icon }}</span> -->
             <span class="label" *ngIf="!isSidebarCollapsed">{{ item.label }}</span>
           </a>
         </li>
@@ -21,7 +21,7 @@
     </nav>
 
     <div class="sidebar-footer" *ngIf="!isSidebarCollapsed">
-      <button class="logout-btn" (click)="logout()">🔓 Logout</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
     </div>
   </aside>
 

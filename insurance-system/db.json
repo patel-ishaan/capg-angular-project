@@ -5,13 +5,20 @@
       "email": "rajesh.kumar@example.com",
       "password": "password123",
       "name": "Rajesh Kumar",
-      "role": "admin"
+      "role": "customer"
     },
     {
       "id": "u2",
       "email": "priya.sharma@example.com",
       "password": "password123",
       "name": "Priya Sharma",
+      "role": "customer"
+    },
+    {
+      "id": "u3",
+      "email": "amit.verma@example.com",
+      "password": "password123",
+      "name": "Amit Verma",
       "role": "customer"
     },
     {
@@ -109,7 +116,7 @@
     },
     {
       "id": "cp3",
-      "userId": null,
+      "userId": "u3",
       "dateOfBirth": "1992-12-10",
       "address": {
         "street": "8 Civil Lines",
@@ -184,11 +191,10 @@
   ],
   "policies": [
     {
-      "id": "p1",
       "name": "HealthGuard Basic",
       "type": "health",
       "coverageAmount": 500000,
-      "premiumAmount": 8000,
+      "premiumAmount": 12000,
       "termYears": 1,
       "minAge": 18,
       "maxAge": 60,
@@ -202,7 +208,8 @@
         "Self-inflicted injuries",
         "Pre-existing conditions (2yr wait)"
       ],
-      "isActive": true
+      "isActive": true,
+      "id": "p1"
     },
     {
       "id": "p2",
@@ -411,20 +418,56 @@
       "id": "Pyq-6wQbewc"
     },
     {
-      "policyId": "p2",
-      "customerId": "u1",
-      "purchaseDate": "2026-06-11T16:21:19.893Z",
-      "startDate": "2026-06-11T16:21:19.893Z",
-      "endDate": "2046-06-11T16:21:19.893Z",
+      "policyId": "p3",
+      "customerId": "qP6KFSsoiqM",
+      "purchaseDate": "2026-06-11T09:32:19.967Z",
+      "startDate": "2026-06-11T09:32:19.967Z",
+      "endDate": "2027-06-11T09:32:19.967Z",
       "selectedNominees": [
         {
-          "nomineeId": "nom_1781194879893_0",
+          "nomineeId": "nom_1781170339967_0",
           "percentage": 100
         }
       ],
       "status": "active",
-      "policyDocumentUrl": "/docs/p2-policy.pdf",
-      "id": "vlLH7vYhJsE"
+      "policyDocumentUrl": "/docs/p3-policy.pdf",
+      "id": "V1mxoWgCucs"
+    },
+    {
+      "policyId": "p3",
+      "customerId": "qP6KFSsoiqM",
+      "purchaseDate": "2026-06-11T09:32:56.663Z",
+      "startDate": "2026-06-11T09:32:56.663Z",
+      "endDate": "2027-06-11T09:32:56.663Z",
+      "selectedNominees": [
+        {
+          "nomineeId": "nom_1781170376663_0",
+          "percentage": 50
+        },
+        {
+          "nomineeId": "nom_1781170376663_1",
+          "percentage": 50
+        }
+      ],
+      "status": "active",
+      "policyDocumentUrl": "/docs/p3-policy.pdf",
+      "id": "Nx-BkuX-H9I"
+    },
+    {
+      "policyId": "p5",
+      "customerId": "u1",
+      "purchaseDate": "2026-06-12T04:42:53.291Z",
+      "startDate": "2026-06-12T04:42:53.291Z",
+      "endDate": "2056-06-12T04:42:53.291Z",
+      "selectedNominees": [
+        {
+          "nomineeId": "nom_1781239373291_0",
+          "percentage": 100
+        }
+      ],
+      "status": "active",
+      "policyDocumentUrl": "/docs/p5-policy.pdf",
+      "id": "LJ1Vq-2V0Hk"
     }
   ],
   "payments": [
@@ -489,14 +532,24 @@
       "id": "nh7ll2QXeRg"
     },
     {
-      "purchaseId": "vlLH7vYhJsE",
-      "customerId": "u1",
-      "amount": 12000,
-      "dueDate": "2046-06-11",
+      "purchaseId": "Nx-BkuX-H9I",
+      "customerId": "qP6KFSsoiqM",
+      "amount": 6500,
+      "dueDate": "2027-06-11",
       "paidDate": "2026-06-11",
       "status": "paid",
       "paymentMethod": "UPI",
-      "id": "J9WHbRsbtuM"
+      "id": "_wOjjvQ01kA"
+    },
+    {
+      "purchaseId": "LJ1Vq-2V0Hk",
+      "customerId": "u1",
+      "amount": 25000,
+      "dueDate": "2056-06-12",
+      "paidDate": "2026-06-12",
+      "status": "paid",
+      "paymentMethod": "UPI",
+      "id": "UQyVhEH_J20"
     }
   ],
   "claims": [
@@ -541,10 +594,10 @@
           "verified": false
         }
       ],
-      "status": "approved",
+      "status": "under_review",
       "adminRemarks": "",
       "submittedAt": "2024-04-05",
-      "updatedAt": "2026-06-11T19:02:29.588Z"
+      "updatedAt": "2024-04-10"
     },
     {
       "id": "cl3",
@@ -609,6 +662,24 @@
       "adminRemarks": "",
       "submittedAt": "2024-06-05",
       "updatedAt": "2024-06-05"
+    },
+    {
+      "purchaseId": "pur1",
+      "incidentDate": "2024-01-31T00:00:00.000Z",
+      "claimAmount": 500000,
+      "description": "sjncksckjsnckkajcn ka c",
+      "documents": [
+        {
+          "type": "hospital_bill",
+          "url": "",
+          "verified": false
+        }
+      ],
+      "status": "submitted",
+      "adminRemarks": "",
+      "submittedAt": "2026-06-11T08:26:54.820Z",
+      "updatedAt": "2026-06-11T08:26:54.820Z",
+      "id": "MNChbjo9rUE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -12,11 +12,11 @@ import { LoginService } from '../../services/auth/login-service';
 })
 export class AdminLayout {
   menuItems = [
-    { path: '/admin/dashboard', icon: '📊', label: 'Dashboard' },
-    { path: '/admin/claims', icon: '📋', label: 'Claims Review' },
-    { path: '/admin/policies', icon: '📄', label: 'Policy Management' },
-    { path: '/admin/payments', icon: '💰', label: 'Payment Overview' },
-    { path: '/admin/users', icon: '👥', label: 'Users List' },
+    { path: '/admin/dashboard', label: 'Dashboard' },
+    { path: '/admin/claims', label: 'Claims Review' },
+    { path: '/admin/policies', label: 'Policy Management' },
+    { path: '/admin/payments', label: 'Payment Overview' },
+    { path: '/admin/users', label: 'Users List' },
   ];
 
   isSidebarCollapsed = false;
