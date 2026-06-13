@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+
+<div class="pay-container">
+  <div class="container">
+    @if (loading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading payment details...</p>
+      </div>
+    } @else if (error()) {
+      <div class="empty-state error-state">
+        <span class="material-symbols-outlined empty-icon" style="color: #ef4444;">error</span>
+        <p>{{ error() }}</p>
+      </div>
+    } @else if (payment()) {
+      <div class="payment-summary-card">
+        
+        <div class="summary-header">
+          <h1>Pay Premium</h1>
+          <p class="meta">Payment ID: <span class="highlight-id">#{{ payment()!.id }}</span></p>
+        </div>
+
+        <div class="summary-grid">
+          <div class="grid-item">
+            <span class="label">Amount</span>
+            <strong class="value highlight">₹{{ payment()!.amount | number:'1.0-0' }}</strong>
+          </div>
+          <div class="grid-item">
+            <span class="label">Due Date</span>
+            <strong class="value">{{ payment()!.dueDate }}</strong>
+          </div>
+          <div class="grid-item">
+            <span class="label">Select Method</span>
+            <select class="form-select" [(ngModel)]="paymentMethod">
+              <option value="upi">UPI</option>
+              <option value="card">Credit / Debit Card</option>
+              <option value="netbanking">Net Banking</option>
+              <option value="wallet">Digital Wallet</option>
+            </select>
+          </div>
+        </div>
+
+        @if (policy()) {
+          <div class="policy-info">
+            <span class="material-symbols-outlined policy-icon">shield</span>
+            <div class="policy-details">
+              <h3>{{ policy()!.name }}</h3>
+              <p>Coverage: ₹{{ policy()!.coverageAmount | number:'1.0-0' }}</p>
+            </div>
+          </div>
+        }
+
+        <div class="actions">
+          <a routerLink="/payments" class="btn-secondary">Cancel</a>
+          <button class="btn-primary" (click)="confirmPayment()" [disabled]="loading()">
+            {{ loading() ? 'Processing...' : 'Proceed to Pay' }}
+          </button>
+        </div>
+
+      </div>
+    }
+  </div>
+</div>

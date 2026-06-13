@@ -15,7 +15,10 @@ export class PolicyReportsService {
     if (!this.pdfMake) {
       const pdfMakeModule = await import('pdfmake/build/pdfmake');
       const pdfFontsModule = await import('pdfmake/build/vfs_fonts');
-      this.pdfMake = pdfMakeModule.default || pdfMakeModule;
+      const pdfMake = pdfMakeModule.default || pdfMakeModule;
+      const pdfFonts = pdfFontsModule.default || pdfFontsModule;
+      pdfMake.vfs = (pdfFonts.pdfMake && pdfFonts.pdfMake.vfs) || pdfFonts.vfs || pdfMake.vfs;
+      this.pdfMake = pdfMake;
     }
   }
 

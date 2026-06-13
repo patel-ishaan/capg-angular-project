@@ -3,13 +3,11 @@
 <div class="catalog-container">
   <div class="container">
 
-    <!-- Header -->
     <div class="catalog-header">
       <h1>Policy Catalog</h1>
       <p>Choose from our range of insurance plans designed for you</p>
     </div>
 
-    <!-- Loading -->
     @if (loading$ | async) {
       <div class="loading-state">
         <div class="spinner"></div>
@@ -17,11 +15,10 @@
       </div>
     }
 
-    <!-- Policies Grid -->
     @if (policies$ | async; as policies) {
       @if (policies.length === 0 && !(loading$ | async)) {
         <div class="empty-state">
-          <span>📋</span>
+          <span class="material-symbols-outlined empty-icon">inventory_2</span>
           <p>No policies available at the moment.</p>
         </div>
       } @else {
@@ -29,13 +26,16 @@
           @for (policy of policies; track policy.id) {
             <div class="policy-card">
 
-              <!-- Card Header -->
               <div class="card-header" [class]="policy.type">
-                <span class="type-icon">{{ getTypeIcon(policy.type) }}</span>
+                <span class="material-symbols-outlined type-icon">
+                  @if (policy.type === 'health') { local_hospital }
+                  @else if (policy.type === 'life') { favorite }
+                  @else if (policy.type === 'vehicle') { directions_car }
+                  @else { shield }
+                </span>
                 <span class="type-badge">{{ policy.type }}</span>
               </div>
 
-              <!-- Card Body -->
               <div class="card-body">
                 <h2 class="policy-name">{{ policy.name }}</h2>
 
@@ -58,27 +58,30 @@
                   </div>
                 </div>
 
-                <!-- Benefits -->
                 <div class="section-title">Benefits</div>
                 <ul class="benefits-list">
                   @for (benefit of policy.benefits; track benefit) {
-                    <li>✅ {{ benefit }}</li>
+                    <li>
+                      <span class="material-symbols-outlined check-icon">check_circle</span>
+                      <span>{{ benefit }}</span>
+                    </li>
                   }
                 </ul>
 
-                <!-- Exclusions -->
                 <div class="section-title">Exclusions</div>
                 <ul class="exclusions-list">
                   @for (exclusion of policy.exclusions; track exclusion) {
-                    <li>❌ {{ exclusion }}</li>
+                    <li>
+                      <span class="material-symbols-outlined cross-icon">cancel</span>
+                      <span>{{ exclusion }}</span>
+                    </li>
                   }
                 </ul>
               </div>
 
-              <!-- Card Footer -->
               <div class="card-footer">
                 <button class="btn-compare" (click)="addToCompare(policy)">
-                  + Compare
+                  Compare
                 </button>
                 <a class="btn-buy" [routerLink]="['/purchase', policy.id]">
                   Buy Now
@@ -91,12 +94,11 @@
       }
     }
 
-    <!-- Comparison Bar -->
     @if (comparison$ | async; as comparison) {
       @if (comparison.length > 0) {
         <div class="comparison-bar">
           <span>{{ comparison.length }} plan(s) selected for comparison</span>
-          <a routerLink="/policies/compare" class="btn-compare-now">Compare Now →</a>
+          <a routerLink="/policies/compare" class="btn-compare-now">Compare Now</a>
         </div>
       }
     }

@@ -9,7 +9,6 @@
   margin: 0 auto;
 }
 
-/* Header */
 .search-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -31,7 +30,6 @@
   font-size: 1rem;
 }
 
-/* Layout */
 .search-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -45,13 +43,12 @@
   }
 }
 
-/* Filters Panel */
 .filters-panel {
   background: #ffffff;
   border: 1px solid #eef2f6;
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
   position: sticky;
   top: 80px;
 }
@@ -73,9 +70,10 @@
   background: transparent;
   border: 1px solid #e0e0e0;
   color: #5a6e8a;
-  padding: 0.25rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 3rem;
   font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -83,6 +81,7 @@
 .btn-reset:hover {
   border-color: #0a5c8e;
   color: #0a5c8e;
+  background: #f0f7fb;
 }
 
 .filter-group {
@@ -117,7 +116,6 @@
   background: #ffffff;
 }
 
-/* Results */
 .results-count {
   font-size: 0.9rem;
   color: #5a6e8a;
@@ -151,63 +149,63 @@
   gap: 1rem;
 }
 
-/* Result Card */
 .result-card {
   background: #ffffff;
   border: 1px solid #eef2f6;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .result-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(10, 92, 142, 0.08);
+  border-color: #d1e3f0;
 }
 
 .result-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1.25rem;
-}
-
-.result-header.health  { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
-.result-header.life    { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
-.result-header.vehicle { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
-
-.type-icon { font-size: 1.25rem; }
-
-.type-badge {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #1e2a41;
-}
-
-.result-body {
   padding: 1rem 1.25rem;
 }
 
-.result-body h3 {
-  font-size: 1rem;
+.result-header.health { background: #e8f5e9; color: #2e7d32; }
+.result-header.life { background: #e3f2fd; color: #1565c0; }
+.result-header.vehicle { background: #fff3e0; color: #e65100; }
+
+.type-icon { 
+  font-size: 1.25rem; 
+}
+
+.type-badge {
+  font-size: 0.8rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.result-body {
+  padding: 1.25rem;
+}
+
+.result-body h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
   color: #1e2a41;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .result-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
+  gap: 0.75rem;
   background: #f8fafc;
-  border-radius: 10px;
-  padding: 0.75rem;
+  border-radius: 12px;
+  padding: 1rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .result-stats {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -216,31 +214,32 @@
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.25rem;
 }
 
 .stat-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: #5a6e8a;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .stat-value {
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 800;
   color: #0a5c8e;
 }
 
 .result-footer {
   display: flex;
-  gap: 0.75rem;
-  padding: 0.75rem 1.25rem;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
   border-top: 1px solid #eef2f6;
+  background: #fafbfc;
 }
 
 .btn-compare {
   flex: 1;
-  padding: 0.55rem;
+  padding: 0.6rem;
   border: 2px solid #0a5c8e;
   background: transparent;
   color: #0a5c8e;
@@ -253,11 +252,12 @@
 
 .btn-compare:hover {
   background: rgba(10, 92, 142, 0.08);
+  transform: translateY(-1px);
 }
 
 .btn-buy {
   flex: 1;
-  padding: 0.55rem;
+  padding: 0.6rem;
   background: #0a5c8e;
   color: white;
   border-radius: 3rem;
@@ -265,9 +265,12 @@
   font-weight: 600;
   text-decoration: none;
   text-align: center;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  border: none;
 }
 
 .btn-buy:hover {
   background: #07426a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10, 92, 142, 0.2);
 }

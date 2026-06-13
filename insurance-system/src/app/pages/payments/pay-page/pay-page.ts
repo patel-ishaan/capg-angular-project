@@ -2,16 +2,17 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { NavbarComponent } from '../../components/navbar/navbar';
-import { Payment } from '../../models/payment.model';
-import { Purchase } from '../../models/purchase.model';
-import { Policy } from '../../models/policy.model';
-import { LoginService } from '../../services/auth/login-service';
+import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../../../components/navbar/navbar';
+import { Payment } from '../../../models/payment.model';
+import { Purchase } from '../../../models/purchase.model';
+import { Policy } from '../../../models/policy.model';
+import { LoginService } from '../../../services/auth/login-service';
 
 @Component({
   selector: 'app-pay-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, NavbarComponent],
+  imports: [CommonModule, RouterLink, FormsModule, NavbarComponent],
   templateUrl: './pay-page.html',
   styleUrl: './pay-page.css'
 })
@@ -26,6 +27,8 @@ export class PayPageComponent implements OnInit {
   policy = signal<Policy | null>(null);
   loading = signal(true);
   error = signal('');
+  
+  paymentMethod = 'upi';
 
   ngOnInit() {
     const userId = this.loginService.currentUser()?.id;
@@ -45,11 +48,9 @@ export class PayPageComponent implements OnInit {
     this.http.get<Payment>(`http://localhost:3000/payments/${paymentId}`).subscribe({
       next: payment => {
         this.payment.set(payment);
-        // fetch purchase
         this.http.get<Purchase>(`http://localhost:3000/purchases/${payment.purchaseId}`).subscribe({
           next: purchase => {
             this.purchase.set(purchase);
-            // fetch policy
             this.http.get<Policy>(`http://localhost:3000/policies/${purchase.policyId}`).subscribe({
               next: policy => {
                 this.policy.set(policy);
@@ -73,7 +74,12 @@ export class PayPageComponent implements OnInit {
     if (!p) return;
     this.loading.set(true);
     const now = new Date().toISOString();
-    this.http.patch<Payment>(`http://localhost:3000/payments/${p.id}`, { status: 'paid', paidDate: now }).subscribe({
+    
+    this.http.patch<Payment>(`http://localhost:3000/payments/${p.id}`, { 
+      status: 'paid', 
+      paidDate: now,
+      paymentMethod: this.paymentMethod
+    }).subscribe({
       next: () => {
         this.loading.set(false);
         this.router.navigate(['/payments']);
