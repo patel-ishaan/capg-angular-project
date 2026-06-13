@@ -45,11 +45,11 @@
                 </span>
               </td>
               <td class="actions">
-                <button class="btn-edit" (click)="openEditForm(policy)">✏️ Edit</button>
+                <button class="btn-edit" (click)="openEditForm(policy)">Edit</button>
                 <button class="btn-toggle" (click)="toggleActive(policy)">
-                  {{ policy.isActive ? '🔴 Deactivate' : '🟢 Activate' }}
+                  {{ policy.isActive ? 'Deactivate' : 'Activate' }}
                 </button>
-                <button class="btn-delete" (click)="deletePolicy(policy)">🗑️ Delete</button>
+                <button class="btn-delete" (click)="deletePolicy(policy)">Delete</button>
               </td>
             </tr>
           }

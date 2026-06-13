@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register';
 import { DashboardComponent } from './dashboard/dashboard';
 import { CatalogPageComponent } from './pages/catalog-page/catalog-page';
 import { PaymentsPageComponent } from './pages/payments/payments';
+import { PayPageComponent } from './pages/payments/pay-page';
 import { ClaimsPageComponent } from './pages/claims/claims';
 import { AddClaimComponent } from './pages/claims/add-claim/add-claim';
 import { SearchPageComponent } from './pages/search-page/search-page';
@@ -93,6 +94,10 @@ export const routes: Routes = [
   {
     path: 'purchase/:policyId',
     component: PurchasePageComponent,
+  },
+  {
+    path: 'pay/:paymentId',
+    component: PayPageComponent,
   },
   {
     path: 'admin',

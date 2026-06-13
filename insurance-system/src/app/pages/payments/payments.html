@@ -65,6 +65,11 @@
                 <strong>{{ payment.paidDate || 'Not paid yet' }}</strong>
               </div>
             </div>
+            <div class="payment-actions">
+              @if (payment.status === 'due' || payment.status === 'overdue') {
+                <a class="btn-primary" [routerLink]="['/pay', payment.id]">Pay</a>
+              }
+            </div>
           </div>
         }
       </div>
