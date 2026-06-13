@@ -1,6 +1,9 @@
 <header class="navbar">
   <div class="container nav-container">
-    <a class="brand" routerLink="/" (click)="closeMenu()">InsurePro</a>
+    <a class="brand" routerLink="/" (click)="closeMenu()">
+      <img src="https://static.vecteezy.com/system/resources/previews/043/211/939/non_2x/a-green-leaf-and-cross-positioned-on-top-of-a-shield-creating-an-emblem-produce-a-clean-and-elegant-logo-for-a-health-insurance-company-emphasizing-simplicity-and-clarity-free-vector.jpg" alt="Logo" class="brand-logo" />
+      ClaimIt
+    </a>
     <button
       class="mobile-menu-btn"
       (click)="toggleMenu()"
@@ -15,15 +18,12 @@
       <a routerLink="/catalog" routerLinkActive="active" (click)="closeMenu()">Policies</a>
       <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
       <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
-      @if (loginService.isAuthenticated()) {
-        <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Profile</a>
-      }
       <div class="nav-buttons">
         @if (!loginService.isAuthenticated()) {
           <a class="btn-outline" routerLink="/login" (click)="closeMenu()"> Login </a>
           <a class="btn-primary" routerLink="/register" (click)="closeMenu()"> Register </a>
         } @else {
-          <a class="btn-outline" routerLink="/dashboard" (click)="closeMenu()">
+          <a class="btn-outline" routerLink="/profile" (click)="closeMenu()">
             {{ loginService.currentUser()?.name }}
           </a>
           <button class="btn-primary" (click)="logout(); closeMenu()">Logout</button>

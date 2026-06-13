@@ -3,13 +3,11 @@
 <div class="compare-container">
   <div class="container">
 
-    <!-- Header -->
     <div class="compare-header">
       <h1>Compare Policies</h1>
       <p>Choose two plans to see a detailed side-by-side comparison</p>
     </div>
 
-    <!-- Loading -->
     @if (loading()) {
       <div class="loading-state">
         <div class="spinner"></div>
@@ -17,16 +15,20 @@
       </div>
     }
 
-    <!-- Policy Selectors -->
     @if (!loading()) {
       <div class="selectors-grid">
 
-        <!-- Policy 1 -->
         <div class="selector-card" [class.is-selected]="!!policy1">
           <div class="selector-label">
             @if (policy1) {
               <span class="type-chip {{ policy1.type }}">
-                {{ getTypeIcon(policy1.type) }} {{ getTypeLabel(policy1.type) }}
+                <span class="material-symbols-outlined chip-icon">
+                  @if (policy1.type === 'health') { local_hospital }
+                  @else if (policy1.type === 'life') { favorite }
+                  @else if (policy1.type === 'vehicle') { directions_car }
+                  @else { shield }
+                </span>
+                {{ getTypeLabel(policy1.type) }}
               </span>
             } @else {
               <span>Policy 1</span>
@@ -36,7 +38,7 @@
             <option value="">— Choose a policy —</option>
             @for (p of allPolicies(); track p.id) {
               <option [value]="p.id" [disabled]="p.id === selectedId2">
-                {{ getTypeIcon(p.type) }} {{ p.name }}
+                {{ p.name }}
               </option>
             }
           </select>
@@ -52,12 +54,17 @@
           <span class="vs-badge">VS</span>
         </div>
 
-        <!-- Policy 2 -->
         <div class="selector-card" [class.is-selected]="!!policy2">
           <div class="selector-label">
             @if (policy2) {
               <span class="type-chip {{ policy2.type }}">
-                {{ getTypeIcon(policy2.type) }} {{ getTypeLabel(policy2.type) }}
+                <span class="material-symbols-outlined chip-icon">
+                  @if (policy2.type === 'health') { local_hospital }
+                  @else if (policy2.type === 'life') { favorite }
+                  @else if (policy2.type === 'vehicle') { directions_car }
+                  @else { shield }
+                </span>
+                {{ getTypeLabel(policy2.type) }}
               </span>
             } @else {
               <span>Policy 2</span>
@@ -67,7 +74,7 @@
             <option value="">— Choose a policy —</option>
             @for (p of allPolicies(); track p.id) {
               <option [value]="p.id" [disabled]="p.id === selectedId1">
-                {{ getTypeIcon(p.type) }} {{ p.name }}
+                {{ p.name }}
               </option>
             }
           </select>
@@ -82,24 +89,31 @@
       </div>
     }
 
-    <!-- Comparison Table -->
     @if (policy1 && policy2) {
       <div class="comparison-section">
 
-        <!-- Column headers -->
         <div class="comp-header-row">
           <div class="feature-col">Feature</div>
           <div class="policy-col {{ policy1.type }}">
-            <span>{{ getTypeIcon(policy1.type) }}</span>
+            <span class="material-symbols-outlined">
+              @if (policy1.type === 'health') { local_hospital }
+              @else if (policy1.type === 'life') { favorite }
+              @else if (policy1.type === 'vehicle') { directions_car }
+              @else { shield }
+            </span>
             <span>{{ policy1.name }}</span>
           </div>
           <div class="policy-col {{ policy2.type }}">
-            <span>{{ getTypeIcon(policy2.type) }}</span>
+            <span class="material-symbols-outlined">
+              @if (policy2.type === 'health') { local_hospital }
+              @else if (policy2.type === 'life') { favorite }
+              @else if (policy2.type === 'vehicle') { directions_car }
+              @else { shield }
+            </span>
             <span>{{ policy2.name }}</span>
           </div>
         </div>
 
-        <!-- Policy Type -->
         <div class="comp-row">
           <div class="feature-col">Policy Type</div>
           <div class="value-col">
@@ -110,65 +124,70 @@
           </div>
         </div>
 
-        <!-- Coverage -->
         <div class="comp-row alt">
           <div class="feature-col">Coverage Amount</div>
           <div class="value-col highlight">₹{{ policy1.coverageAmount | number }}</div>
           <div class="value-col highlight">₹{{ policy2.coverageAmount | number }}</div>
         </div>
 
-        <!-- Premium -->
         <div class="comp-row">
           <div class="feature-col">Annual Premium</div>
           <div class="value-col">₹{{ policy1.premiumAmount | number }}/yr</div>
           <div class="value-col">₹{{ policy2.premiumAmount | number }}/yr</div>
         </div>
 
-        <!-- Term -->
         <div class="comp-row alt">
           <div class="feature-col">Policy Term</div>
           <div class="value-col">{{ policy1.termYears }} years</div>
           <div class="value-col">{{ policy2.termYears }} years</div>
         </div>
 
-        <!-- Age Range -->
         <div class="comp-row">
           <div class="feature-col">Eligible Age</div>
           <div class="value-col">{{ policy1.minAge }} – {{ policy1.maxAge }} yrs</div>
           <div class="value-col">{{ policy2.minAge }} – {{ policy2.maxAge }} yrs</div>
         </div>
 
-        <!-- Benefits -->
         <div class="comp-row alt">
           <div class="feature-col">Benefits</div>
           <div class="value-col list-col">
             @for (b of policy1.benefits; track b) {
-              <div class="list-item">✅ {{ b }}</div>
+              <div class="list-item">
+                <span class="material-symbols-outlined check-icon">check_circle</span>
+                <span>{{ b }}</span>
+              </div>
             }
           </div>
           <div class="value-col list-col">
             @for (b of policy2.benefits; track b) {
-              <div class="list-item">✅ {{ b }}</div>
+              <div class="list-item">
+                <span class="material-symbols-outlined check-icon">check_circle</span>
+                <span>{{ b }}</span>
+              </div>
             }
           </div>
         </div>
 
-        <!-- Exclusions -->
         <div class="comp-row">
           <div class="feature-col">Exclusions</div>
           <div class="value-col list-col">
             @for (e of policy1.exclusions; track e) {
-              <div class="list-item muted">❌ {{ e }}</div>
+              <div class="list-item muted">
+                <span class="material-symbols-outlined cross-icon">cancel</span>
+                <span>{{ e }}</span>
+              </div>
             }
           </div>
           <div class="value-col list-col">
             @for (e of policy2.exclusions; track e) {
-              <div class="list-item muted">❌ {{ e }}</div>
+              <div class="list-item muted">
+                <span class="material-symbols-outlined cross-icon">cancel</span>
+                <span>{{ e }}</span>
+              </div>
             }
           </div>
         </div>
 
-        <!-- CTA Row -->
         <div class="cta-row">
           <div class="feature-col"></div>
           <div class="value-col">
@@ -187,7 +206,7 @@
 
     } @else if (!loading()) {
       <div class="empty-state">
-        <span>⚖️</span>
+        <span class="material-symbols-outlined empty-icon">compare_arrows</span>
         <p>Select two policies from the dropdowns above to compare them side by side</p>
         <a routerLink="/catalog" class="btn-primary">Browse All Policies</a>
       </div>

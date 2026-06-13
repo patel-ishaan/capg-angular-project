@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaymentService } from '../../../services/payment-service';
+import { PaymentService } from '../../../services/payment/payment-service';
 import { Payment } from '../../../models/payment.model';
 
 @Component({

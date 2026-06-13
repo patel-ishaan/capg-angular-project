@@ -1,60 +1,78 @@
 <app-navbar />
 
 <div class="claims-container">
+  <div class="container">
 
-  <div class="claims-header">
-    <div>
-      <h1>My Claims</h1>
-      <p>Track all insurance claims and their status.</p>
+    <div class="claims-header-row">
+      <div class="header-text">
+        <h1>My Claims</h1>
+        <p>Track all insurance claims and their status.</p>
+      </div>
+      <a routerLink="/claims/add" class="btn-primary">
+        <span class="material-symbols-outlined" style="font-size: 1.2rem;">add</span>
+        Submit New Claim
+      </a>
     </div>
-    <a routerLink="/claims/add" class="btn-primary">+ Submit New Claim</a>
-  </div>
 
-  @if (loading()) {
-    <div class="empty-state">
-      Loading claims...
-    </div>
-  } @else {
-    @if (claims().length === 0) {
-      <div class="empty-state">
-        No claims submitted yet.
+    @if (loading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading claims...</p>
       </div>
     } @else {
-      <div class="claims-list">
-        @for (claim of claims(); track claim.id) {
-          <div class="claim-card">
-            <div class="claim-top">
-              <div>
-                <h3>Claim #{{ claim.id }}</h3>
-                <p>Submitted: {{ claim.submittedAt }}</p>
+      @if (claims().length === 0) {
+        <div class="empty-state">
+          <span class="material-symbols-outlined empty-icon">receipt_long</span>
+          <p>No claims submitted yet.</p>
+        </div>
+      } @else {
+        <div class="claims-list">
+          @for (claim of claims(); track claim.id) {
+            <div class="claim-card">
+              
+              <div class="claim-top">
+                <div class="claim-title">
+                  <h3>Claim #{{ claim.id }}</h3>
+                  <span>Submitted: {{ claim.submittedAt }}</span>
+                </div>
+                <span class="status-badge" [class]="claim.status">
+                  {{ getStatusLabel(claim.status) }}
+                </span>
               </div>
-              <span class="status-badge" [class]="claim.status">
-                {{ getStatusLabel(claim.status) }}
-              </span>
-            </div>
-            <div class="claim-details">
-              <div>
-                <strong>Amount</strong>
-                <p>₹{{ claim.claimAmount }}</p>
-              </div>
-              <div>
-                <strong>Incident Date</strong>
-                <p>{{ claim.incidentDate }}</p>
-              </div>
-            </div>
-            <div class="description">
-              {{ claim.description }}
-            </div>
-            @if (claim.adminRemarks) {
-              <div class="remarks">
-                <strong>Admin Remarks:</strong>
-                {{ claim.adminRemarks }}
-              </div>
-            }
-          </div>
-        }
-      </div>
-    }
-  }
 
+              <div class="claim-stats">
+                <div class="stat">
+                  <span class="stat-label">Claim Amount</span>
+                  <span class="stat-value highlight">₹{{ claim.claimAmount | number }}</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Incident Date</span>
+                  <span class="stat-value">{{ claim.incidentDate }}</span>
+                </div>
+              </div>
+
+              <div class="claim-body">
+                <div class="description-block">
+                  <strong class="block-title">Description</strong>
+                  <p>{{ claim.description }}</p>
+                </div>
+
+                @if (claim.adminRemarks) {
+                  <div class="remarks-block">
+                    <strong class="block-title">
+                      <span class="material-symbols-outlined" style="font-size: 1rem;">info</span>
+                      Admin Remarks
+                    </strong>
+                    <p>{{ claim.adminRemarks }}</p>
+                  </div>
+                }
+              </div>
+
+            </div>
+          }
+        </div>
+      }
+    }
+
+  </div>
 </div>

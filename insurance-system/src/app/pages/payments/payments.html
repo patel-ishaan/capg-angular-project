@@ -2,6 +2,7 @@
 
 <div class="payments-page">
   <div class="container">
+    
     <div class="page-header">
       <div>
         <h1>Payments</h1>
@@ -33,45 +34,95 @@
       <div class="empty-state">Loading payment history...</div>
     } @else if (error()) {
       <div class="error-state">{{ error() }}</div>
-    } @else if (payments().length === 0) {
-      <div class="empty-state">
-        <span>💳</span>
-        <p>No payments found yet.</p>
-        <a routerLink="/catalog" class="btn-primary">Browse Policies</a>
-      </div>
     } @else {
-      <div class="payments-list">
-        @for (payment of payments(); track payment.id) {
-          <div class="payment-card" [class.overdue]="payment.status === 'overdue'">
-            <div class="payment-row">
-              <div>
-                <h3>Payment ID: {{ payment.id }}</h3>
-                <p class="meta">Method: {{ payment.paymentMethod }}</p>
-              </div>
-              <span class="status {{ payment.status }}">{{ payment.status | titlecase }}</span>
-            </div>
-
-            <div class="payment-details">
-              <div>
-                <span>Amount</span>
-                <strong>₹{{ payment.amount | number:'1.0-0' }}</strong>
-              </div>
-              <div>
-                <span>Due Date</span>
-                <strong>{{ payment.dueDate }}</strong>
-              </div>
-              <div>
-                <span>Paid Date</span>
-                <strong>{{ payment.paidDate || 'Not paid yet' }}</strong>
-              </div>
-            </div>
-            <div class="payment-actions">
-              @if (payment.status === 'due' || payment.status === 'overdue') {
-                <a class="btn-primary" [routerLink]="['/pay', payment.id]">Pay</a>
-              }
-            </div>
+      
+      <div class="payments-layout">
+        
+        <aside class="filters-panel">
+          <div class="filters-header">
+            <h2>Filters</h2>
+            <button class="btn-reset" (click)="resetFilters()">Reset</button>
           </div>
-        }
+
+          <div class="filter-group">
+            <label>Payment Status</label>
+            <select [(ngModel)]="filters.status" (ngModelChange)="applyFilters()">
+              <option value="">All Statuses</option>
+              <option value="paid">Paid</option>
+              <option value="due">Due</option>
+              <option value="overdue">Overdue</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Method</label>
+            <input type="text" [(ngModel)]="filters.method" 
+                   (ngModelChange)="applyFilters()" 
+                   placeholder="Search method..." />
+          </div>
+
+          <div class="filter-group">
+            <label>Min Amount (₹)</label>
+            <input type="number" [(ngModel)]="filters.minAmount" 
+                   (ngModelChange)="applyFilters()" 
+                   placeholder="e.g. 1000" />
+          </div>
+
+          <div class="filter-group">
+            <label>Max Amount (₹)</label>
+            <input type="number" [(ngModel)]="filters.maxAmount" 
+                   (ngModelChange)="applyFilters()" 
+                   placeholder="e.g. 50000" />
+          </div>
+        </aside>
+
+        <div class="payments-main">
+          @if (payments().length === 0) {
+            <div class="empty-state">
+              <span class="material-symbols-outlined empty-icon">receipt_long</span>
+              <p>No payments found matching your filters.</p>
+            </div>
+          } @else {
+            <div class="payments-table-container">
+              <table class="payments-table">
+                <thead>
+                  <tr>
+                    <th>Payment ID</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (payment of payments(); track payment.id) {
+                    <tr>
+                      <td>
+                        <strong class="payment-id">{{ payment.id }}</strong>
+                        <span class="meta-sub">{{ payment.paymentMethod }}</span>
+                      </td>
+                      <td>
+                        <span class="date-text">{{ payment.dueDate }}</span>
+                      </td>
+                      <td>
+                        <strong class="amount-text">₹{{ payment.amount | number:'1.0-0' }}</strong>
+                      </td>
+                      <td>
+                        <span class="status-badge" [class]="payment.status">{{ payment.status | titlecase }}</span>
+                      </td>
+                      <td class="table-actions">
+                        @if (payment.status === 'due' || payment.status === 'overdue') {
+                          <a class="btn-primary-small" [routerLink]="['/pay', payment.id]">Pay Now</a>
+                        }
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+        
       </div>
     }
   </div>

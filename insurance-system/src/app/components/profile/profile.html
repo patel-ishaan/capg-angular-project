@@ -4,21 +4,18 @@
   <div class="container">
 
     @if (loading) {
-      <!-- Loading State -->
       <div class="state-card">
         <div class="spinner"></div>
         <p>Loading your profile...</p>
       </div>
     } @else if (error) {
-      <!-- Error State -->
       <div class="state-card error-state">
-        <span class="state-icon">⚠️</span>
+        <span class="material-symbols-outlined state-icon">error</span>
         <p>{{ error }}</p>
         <a routerLink="/dashboard" class="btn-primary">Go to Dashboard</a>
       </div>
     } @else if (user && profile) {
 
-      <!-- Profile Header -->
       <div class="profile-header-section">
         <div class="profile-avatar">{{ user.name.charAt(0).toUpperCase() }}</div>
         <div class="profile-header-info">
@@ -28,7 +25,6 @@
         </div>
       </div>
 
-      <!-- Personal Information -->
       <div class="section">
         <h2 class="section-title">Personal Information</h2>
         <div class="info-grid">
@@ -66,60 +62,52 @@
         </div>
       </div>
 
-      <!-- Communication Preferences -->
       <div class="section">
         <h2 class="section-title">Communication Preferences</h2>
         <div class="prefs-list">
 
           <div class="pref-item">
             <div class="pref-label">
-              <span class="pref-icon">📧</span>
+              <span class="material-symbols-outlined pref-icon">mail</span>
               <div>
                 <strong>Email Alerts</strong>
                 <span>Receive important policy notifications via email</span>
               </div>
             </div>
-            <span class="pref-badge"
-                  [class.enabled]="profile.communicationPref.emailAlerts"
-                  [class.disabled]="!profile.communicationPref.emailAlerts">
-              {{ profile.communicationPref.emailAlerts ? 'Enabled' : 'Disabled' }}
-            </span>
+            <div class="toggle-switch" [class.on]="profile.communicationPref.emailAlerts">
+              <div class="toggle-knob"></div>
+            </div>
           </div>
 
           <div class="pref-item">
             <div class="pref-label">
-              <span class="pref-icon">💬</span>
+              <span class="material-symbols-outlined pref-icon">sms</span>
               <div>
                 <strong>SMS Reminders</strong>
                 <span>Get payment and renewal reminders via SMS</span>
               </div>
             </div>
-            <span class="pref-badge"
-                  [class.enabled]="profile.communicationPref.smsReminders"
-                  [class.disabled]="!profile.communicationPref.smsReminders">
-              {{ profile.communicationPref.smsReminders ? 'Enabled' : 'Disabled' }}
-            </span>
+            <div class="toggle-switch" [class.on]="profile.communicationPref.smsReminders">
+              <div class="toggle-knob"></div>
+            </div>
           </div>
 
           <div class="pref-item">
             <div class="pref-label">
-              <span class="pref-icon">📣</span>
+              <span class="material-symbols-outlined pref-icon">campaign</span>
               <div>
                 <strong>Marketing Emails</strong>
                 <span>Receive offers and promotional emails</span>
               </div>
             </div>
-            <span class="pref-badge"
-                  [class.enabled]="profile.communicationPref.marketingEmails"
-                  [class.disabled]="!profile.communicationPref.marketingEmails">
-              {{ profile.communicationPref.marketingEmails ? 'Enabled' : 'Disabled' }}
-            </span>
+            <div class="toggle-switch" [class.on]="profile.communicationPref.marketingEmails">
+              <div class="toggle-knob"></div>
+            </div>
           </div>
 
         </div>
       </div>
 
-      <!-- Nominees -->
       @if (profile.nominees && profile.nominees.length > 0) {
         <div class="section">
           <h2 class="section-title">Nominees</h2>
@@ -131,40 +119,39 @@
                   <strong>{{ nominee.fullName }}</strong>
                   <span>{{ nominee.relationship }}</span>
                 </div>
-                <div class="nominee-pct">{{ nominee.percentage }}%</div>
+                <div class="nominee-pct">Share: {{ nominee.percentage }}%</div>
               </div>
             }
           </div>
         </div>
       }
 
-      <!-- Quick Actions -->
       <div class="section">
         <h2 class="section-title">Quick Actions</h2>
         <div class="actions-list">
           <a routerLink="/dashboard" class="action-item">
-            <span class="action-icon">🏠</span>
+            <span class="material-symbols-outlined action-icon">dashboard</span>
             <div class="action-text">
               <strong>Dashboard</strong>
               <span>Go back to your dashboard</span>
             </div>
-            <span class="arrow">→</span>
+            <span class="material-symbols-outlined arrow">chevron_right</span>
           </a>
           <a routerLink="/claims" class="action-item">
-            <span class="action-icon">📝</span>
+            <span class="material-symbols-outlined action-icon">receipt_long</span>
             <div class="action-text">
               <strong>My Claims</strong>
               <span>View and track your claims</span>
             </div>
-            <span class="arrow">→</span>
+            <span class="material-symbols-outlined arrow">chevron_right</span>
           </a>
           <a routerLink="/payments" class="action-item">
-            <span class="action-icon">💳</span>
+            <span class="material-symbols-outlined action-icon">credit_card</span>
             <div class="action-text">
               <strong>Payments</strong>
               <span>View premium dues and history</span>
             </div>
-            <span class="arrow">→</span>
+            <span class="material-symbols-outlined arrow">chevron_right</span>
           </a>
         </div>
       </div>
