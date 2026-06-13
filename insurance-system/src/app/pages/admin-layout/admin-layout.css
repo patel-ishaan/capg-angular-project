@@ -1,11 +1,9 @@
-/* Container */
 .admin-container {
   display: flex;
   min-height: 100vh;
   background-color: #f4f7fc;
 }
 
-/* Sidebar Styles */
 .sidebar {
   width: 260px;
   background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
@@ -154,7 +152,6 @@
   flex: 1;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
