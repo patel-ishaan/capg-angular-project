@@ -7,7 +7,11 @@ export const authRedircetGuard = () => {
   const router = inject(Router);
 
   if (loginService.isAuthenticated()) {
-    router.navigate(['/dashboard']);
+    if (loginService.currentUser?.()?.role === 'admin') {
+      router.navigate(['/admin']);
+    } else {
+      router.navigate(['/dashboard']);
+    }
     return false;
   }
 
