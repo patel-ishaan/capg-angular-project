@@ -14,6 +14,7 @@ import {
 import { NavbarComponent } from '../../../components/navbar/navbar';
 import { LoginService } from '../../../services/auth/login-service';
 import { ClaimService } from '../../../services/claim/claim.service';
+import { NotificationService } from '../../../services/user/notification.service';
 import { HttpClient } from '@angular/common/http';
 import { Purchase } from '../../../models/purchase.model';
 import { Policy } from '../../../models/policy.model';
@@ -64,11 +65,12 @@ interface PurchaseWithPolicy extends Purchase {
   styleUrl: './add-claim.css'
 })
 export class AddClaimComponent implements OnInit {
-  private fb           = inject(FormBuilder);
-  private http         = inject(HttpClient);
-  private loginService = inject(LoginService);
-  private claimService = inject(ClaimService);
-  private router       = inject(Router);
+  private fb                  = inject(FormBuilder);
+  private http                = inject(HttpClient);
+  private loginService        = inject(LoginService);
+  private claimService        = inject(ClaimService);
+  private notificationService = inject(NotificationService);
+  private router              = inject(Router);
 
   // state
   activePurchases  = signal<PurchaseWithPolicy[]>([]);
@@ -88,7 +90,6 @@ export class AddClaimComponent implements OnInit {
     documents:    this.fb.group({})
   });
 
-  // convenience getters
   get purchaseId()     { return this.form.get('purchaseId')!; }
   get incidentDate()   { return this.form.get('incidentDate')!; }
   get claimAmount()    { return this.form.get('claimAmount')!; }
@@ -130,7 +131,6 @@ export class AddClaimComponent implements OnInit {
 
     if (!purchase?.policy) return;
 
-    // update claimAmount validator with coverage ceiling
     this.claimAmount.setValidators([
       Validators.required,
       Validators.min(1),
@@ -138,7 +138,6 @@ export class AddClaimComponent implements OnInit {
     ]);
     this.claimAmount.updateValueAndValidity();
 
-    // update incidentDate validator with policy period
     this.incidentDate.setValidators([
       Validators.required,
       incidentDateValidator(
@@ -148,7 +147,6 @@ export class AddClaimComponent implements OnInit {
     ]);
     this.incidentDate.updateValueAndValidity();
 
-    // rebuild documents group dynamically
     this.buildDocumentControls(purchase.policy.type);
   }
 
@@ -177,7 +175,8 @@ export class AddClaimComponent implements OnInit {
     }
 
     const purchase = this.selectedPurchase();
-    if (!purchase) return;
+    const user = this.loginService.currentUser();
+    if (!purchase || !user) return;
 
     this.submitting.set(true);
     this.error.set('');
@@ -188,16 +187,11 @@ export class AddClaimComponent implements OnInit {
       .map(([type]) => ({ type, url: '', verified: false }));
 
     const now = new Date();
-    const purchaseId = this.form.value.purchaseId ?? '';
-    const incidentDateValue = new Date(this.form.value.incidentDate ?? '');
-    const claimAmountValue = this.form.value.claimAmount ?? 0;
-    const descriptionValue = this.form.value.description ?? '';
-
     const newClaim = {
-      purchaseId,
-      incidentDate: incidentDateValue,
-      claimAmount:  claimAmountValue,
-      description:  descriptionValue,
+      purchaseId:   this.form.value.purchaseId ?? '',
+      incidentDate: new Date(this.form.value.incidentDate ?? ''),
+      claimAmount:  this.form.value.claimAmount ?? 0,
+      description:  this.form.value.description ?? '',
       documents,
       status:       'submitted' as const,
       adminRemarks: '',
@@ -207,6 +201,26 @@ export class AddClaimComponent implements OnInit {
 
     this.claimService.submitClaim(newClaim).subscribe({
       next: () => {
+        // notify customer
+        this.notificationService.createNotification({
+          userId: user.id,
+          message: `Your claim for "${purchase.policy?.name}" has been submitted successfully and is under review.`,
+          type: 'info',
+          category: 'claim',
+          read: false,
+          createdAt: now.toISOString().split('T')[0]
+        }).subscribe();
+
+        // notify admin
+        this.notificationService.createNotification({
+          userId: 'admin',
+          message: `New claim submitted by ${user.name} for policy "${purchase.policy?.name}". Amount: ₹${newClaim.claimAmount.toLocaleString()}.`,
+          type: 'warning',
+          category: 'admin',
+          read: false,
+          createdAt: now.toISOString().split('T')[0]
+        }).subscribe();
+
         this.submitting.set(false);
         this.success.set('Claim submitted successfully! Redirecting...');
         setTimeout(() => this.router.navigate(['/claims']), 2000);

@@ -23,6 +23,7 @@ import { AdminPolicies } from './pages/admin/admin-policies/admin-policies';
 import { AdminClaimsComponent } from './pages/admin/admin-claims/admin-claims';
 import { Users } from './components/admin/users/users';
 import { AdminPaymentsComponent } from './pages/admin/admin-payments/admin-payments';
+import { NotificationsPageComponent } from './pages/notifications-page/notification-page/notification-page';
 
 export const routes: Routes = [
   {
@@ -119,6 +120,10 @@ export const routes: Routes = [
       { path: 'payments', component: AdminPaymentsComponent },
       { path: '**', component: ErrorPage },
     ],
+  },
+  {
+    path:'notifications',
+    component:NotificationsPageComponent
   },
   {
     path: '**',
