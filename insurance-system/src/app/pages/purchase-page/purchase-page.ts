@@ -10,6 +10,7 @@ import { LoginService } from '../../services/auth/login-service';
 import { Policy } from '../../models/policy.model';
 import { Purchase } from '../../models/purchase.model';
 import { Payment } from '../../models/payment.model';
+import { NotificationService } from '../../services/user/notification.service';
 
 @Component({
   selector: 'app-purchase-page',
@@ -25,6 +26,8 @@ export class PurchasePageComponent implements OnInit {
   private fb = inject(FormBuilder);
   // private loginService = inject(LoginService);
   protected loginService = inject(LoginService);
+  private notificationService = inject(NotificationService);
+
 
   private BASE_URL = 'http://localhost:3000';
 
@@ -111,56 +114,65 @@ export class PurchasePageComponent implements OnInit {
   }
 
   confirmPurchase() {
-    if (this.paymentForm.invalid) { this.paymentForm.markAllAsTouched(); return; }
-    const user = this.loginService.currentUser();
-    const policy = this.policy();
-    if (!user || !policy) return;
+  if (this.paymentForm.invalid) { this.paymentForm.markAllAsTouched(); return; }
+  const user = this.loginService.currentUser();
+  const policy = this.policy();
+  if (!user || !policy) return;
 
-    this.submitting.set(true);
+  this.submitting.set(true);
 
-    const today = new Date();
-    const endDate = new Date();
-    endDate.setFullYear(today.getFullYear() + policy.termYears);
+  const today = new Date();
+  const endDate = new Date();
+  endDate.setFullYear(today.getFullYear() + policy.termYears);
 
-    const nominees = this.nominees.value.map((n: any, i: number) => ({
-      nomineeId: `nom_${Date.now()}_${i}`,
-      percentage: n.percentage
-    }));
+  const nominees = this.nominees.value.map((n: any, i: number) => ({
+    nomineeId: `nom_${Date.now()}_${i}`,
+    percentage: n.percentage
+  }));
 
-    const newPurchase: Omit<Purchase, 'id'> = {
-      policyId: policy.id,
-      customerId: user.id,
-      purchaseDate: today,
-      startDate: today,
-      endDate: endDate,
-      selectedNominees: nominees,
-      status: 'active',
-      policyDocumentUrl: `/docs/${policy.id}-policy.pdf`
-    };
+  const newPurchase: Omit<Purchase, 'id'> = {
+    policyId: policy.id,
+    customerId: user.id,
+    purchaseDate: today,
+    startDate: today,
+    endDate: endDate,
+    selectedNominees: nominees,
+    status: 'active',
+    policyDocumentUrl: `/docs/${policy.id}-policy.pdf`
+  };
 
-    // POST purchase then POST payment
-    this.http.post<Purchase>(`${this.BASE_URL}/purchases`, newPurchase).pipe(
-      switchMap(purchase => {
-        const payment: Omit<Payment, 'id'> = {
-          purchaseId: purchase.id,
-          customerId: user.id,
-          amount: policy.premiumAmount,
-          dueDate: endDate.toISOString().split('T')[0],
-          paidDate: today.toISOString().split('T')[0],
-          status: 'paid',
-          paymentMethod: this.paymentForm.value.paymentMethod!
-        };
-        return this.http.post<Payment>(`${this.BASE_URL}/payments`, payment);
-      })
-    ).subscribe({
-      next: () => {
-        this.submitting.set(false);
-        this.currentStep.set(4); // success step
-      },
-      error: () => {
-        this.submitting.set(false);
-        this.error.set('Purchase failed. Please try again.');
-      }
-    });
-  }
+  this.http.post<Purchase>(`${this.BASE_URL}/purchases`, newPurchase).pipe(
+    switchMap(purchase => {
+      const payment: Omit<Payment, 'id'> = {
+        purchaseId: purchase.id,
+        customerId: user.id,
+        amount: policy.premiumAmount,
+        dueDate: endDate.toISOString().split('T')[0],
+        paidDate: today.toISOString().split('T')[0],
+        status: 'paid',
+        paymentMethod: this.paymentForm.value.paymentMethod!
+      };
+      return this.http.post<Payment>(`${this.BASE_URL}/payments`, payment);
+    }),
+    switchMap(() => {
+      return this.notificationService.createNotification({
+        userId: user.id,
+        message: `Your ${policy.name} policy has been activated successfully. Coverage: ₹${policy.coverageAmount.toLocaleString()}.`,
+        type: 'success',
+        category: 'purchase',
+        read: false,
+        createdAt: today.toISOString().split('T')[0]
+      });
+    })
+  ).subscribe({
+    next: () => {
+      this.submitting.set(false);
+      this.currentStep.set(4);
+    },
+    error: () => {
+      this.submitting.set(false);
+      this.error.set('Purchase failed. Please try again.');
+    }
+  });
+}
 }

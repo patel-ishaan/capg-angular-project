@@ -29,7 +29,7 @@
       "role": "customer"
     },
     {
-      "id": "u5",
+      "id": "admin",
       "email": "admin@insureease.com",
       "password": "admin123",
       "name": "Admin User",
@@ -172,7 +172,7 @@
     },
     {
       "id": "cp5",
-      "userId": "u5",
+      "userId": "admin",
       "dateOfBirth": "1980-01-20",
       "address": {
         "street": "1 Admin Block",
@@ -198,7 +198,11 @@
       "termYears": 1,
       "minAge": 18,
       "maxAge": 60,
-      "benefits": ["Hospitalization cover", "Day care procedures", "Pre & post hospitalization"],
+      "benefits": [
+        "Hospitalization cover",
+        "Day care procedures",
+        "Pre & post hospitalization"
+      ],
       "exclusions": [
         "Cosmetic surgery",
         "Self-inflicted injuries",
@@ -216,8 +220,16 @@
       "termYears": 20,
       "minAge": 21,
       "maxAge": 55,
-      "benefits": ["Death benefit", "Terminal illness cover", "Tax benefit under 80C"],
-      "exclusions": ["Suicide within 1 year", "Death due to war", "Aviation accidents"],
+      "benefits": [
+        "Death benefit",
+        "Terminal illness cover",
+        "Tax benefit under 80C"
+      ],
+      "exclusions": [
+        "Suicide within 1 year",
+        "Death due to war",
+        "Aviation accidents"
+      ],
       "isActive": true
     },
     {
@@ -235,7 +247,11 @@
         "Roadside assistance",
         "Zero depreciation"
       ],
-      "exclusions": ["Drunk driving", "Invalid license", "Wear and tear"],
+      "exclusions": [
+        "Drunk driving",
+        "Invalid license",
+        "Wear and tear"
+      ],
       "isActive": true
     },
     {
@@ -254,7 +270,11 @@
         "International coverage",
         "No claim bonus"
       ],
-      "exclusions": ["Cosmetic surgery", "Self-inflicted injuries", "Dental (unless accident)"],
+      "exclusions": [
+        "Cosmetic surgery",
+        "Self-inflicted injuries",
+        "Dental (unless accident)"
+      ],
       "isActive": true
     },
     {
@@ -266,8 +286,17 @@
       "termYears": 30,
       "minAge": 25,
       "maxAge": 50,
-      "benefits": ["Lifetime coverage", "Maturity benefit", "Loan facility", "Bonus accumulation"],
-      "exclusions": ["Suicide within 2 years", "Criminal activity", "Drug abuse"],
+      "benefits": [
+        "Lifetime coverage",
+        "Maturity benefit",
+        "Loan facility",
+        "Bonus accumulation"
+      ],
+      "exclusions": [
+        "Suicide within 2 years",
+        "Criminal activity",
+        "Drug abuse"
+      ],
       "isActive": true
     },
     {
@@ -278,8 +307,12 @@
       "termYears": 9,
       "minAge": 18,
       "maxAge": 65,
-      "benefits": ["money after dead"],
-      "exclusions": ["already dead"],
+      "benefits": [
+        "money after dead"
+      ],
+      "exclusions": [
+        "already dead"
+      ],
       "isActive": true,
       "id": "AsyQ7z9RHCg"
     }
@@ -436,6 +469,38 @@
       "status": "active",
       "policyDocumentUrl": "/docs/p3-policy.pdf",
       "id": "Nx-BkuX-H9I"
+    },
+    {
+      "policyId": "p1",
+      "customerId": "u1",
+      "purchaseDate": "2026-06-14T12:01:44.805Z",
+      "startDate": "2026-06-14T12:01:44.805Z",
+      "endDate": "2027-06-14T12:01:44.805Z",
+      "selectedNominees": [
+        {
+          "nomineeId": "nom_1781438504805_0",
+          "percentage": 100
+        }
+      ],
+      "status": "active",
+      "policyDocumentUrl": "/docs/p1-policy.pdf",
+      "id": "m6ANbwGUokk"
+    },
+    {
+      "policyId": "p5",
+      "customerId": "u1",
+      "purchaseDate": "2026-06-14T12:04:42.540Z",
+      "startDate": "2026-06-14T12:04:42.540Z",
+      "endDate": "2056-06-14T12:04:42.540Z",
+      "selectedNominees": [
+        {
+          "nomineeId": "nom_1781438682540_0",
+          "percentage": 100
+        }
+      ],
+      "status": "active",
+      "policyDocumentUrl": "/docs/p5-policy.pdf",
+      "id": "KF-8HuOQRtM"
     }
   ],
   "payments": [
@@ -455,9 +520,9 @@
       "customerId": "u1",
       "amount": 25000,
       "dueDate": "2025-08-05",
-      "paidDate": null,
-      "status": "due",
-      "paymentMethod": "Net Banking"
+      "paidDate": "2026-06-14T12:01:04.873Z",
+      "status": "paid",
+      "paymentMethod": "upi"
     },
     {
       "id": "pay3",
@@ -508,6 +573,26 @@
       "status": "paid",
       "paymentMethod": "UPI",
       "id": "_wOjjvQ01kA"
+    },
+    {
+      "purchaseId": "m6ANbwGUokk",
+      "customerId": "u1",
+      "amount": 12000,
+      "dueDate": "2027-06-14",
+      "paidDate": "2026-06-14",
+      "status": "paid",
+      "paymentMethod": "UPI",
+      "id": "LE2YN7FwT_M"
+    },
+    {
+      "purchaseId": "KF-8HuOQRtM",
+      "customerId": "u1",
+      "amount": 25000,
+      "dueDate": "2056-06-14",
+      "paidDate": "2026-06-14",
+      "status": "paid",
+      "paymentMethod": "UPI",
+      "id": "97yX76jxcZs"
     }
   ],
   "claims": [
@@ -638,6 +723,148 @@
       "submittedAt": "2026-06-11T08:26:54.820Z",
       "updatedAt": "2026-06-11T08:26:54.820Z",
       "id": "MNChbjo9rUE"
+    },
+    {
+      "purchaseId": "7vX0DynI81I",
+      "incidentDate": "2026-06-14T00:00:00.000Z",
+      "claimAmount": 15000,
+      "description": "testing notification",
+      "documents": [
+        {
+          "type": "fir_copy",
+          "url": "",
+          "verified": false
+        },
+        {
+          "type": "medical_report",
+          "url": "",
+          "verified": false
+        }
+      ],
+      "status": "submitted",
+      "adminRemarks": "",
+      "submittedAt": "2026-06-14T12:08:36.941Z",
+      "updatedAt": "2026-06-14T12:08:36.941Z",
+      "id": "hfIOwBRGZf4"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif1",
+      "userId": "u1",
+      "message": "Your HealthGuard Basic policy has been activated successfully.",
+      "type": "success",
+      "category": "purchase",
+      "read": true,
+      "createdAt": "2024-01-10"
+    },
+    {
+      "id": "notif2",
+      "userId": "u1",
+      "message": "Premium due for LifeSecure Whole Life on 2025-08-05. Amount: ₹25,000.",
+      "type": "warning",
+      "category": "payment",
+      "read": true,
+      "createdAt": "2024-07-01"
+    },
+    {
+      "id": "notif3",
+      "userId": "u1",
+      "message": "Your claim for Hospitalization has been approved.",
+      "type": "success",
+      "category": "claim",
+      "read": true,
+      "createdAt": "2024-05-25"
+    },
+    {
+      "id": "notif4",
+      "userId": "u2",
+      "message": "Your claim requires additional documents. Please submit surgeon's certificate.",
+      "type": "warning",
+      "category": "claim",
+      "read": false,
+      "createdAt": "2024-03-01"
+    },
+    {
+      "id": "notif5",
+      "userId": "u2",
+      "message": "Your LifeSecure Term Plan policy has been activated successfully.",
+      "type": "success",
+      "category": "purchase",
+      "read": true,
+      "createdAt": "2023-06-15"
+    },
+    {
+      "id": "notif6",
+      "userId": "u4",
+      "message": "Your claim for OPD treatment has been rejected. Reason: Policy expired.",
+      "type": "error",
+      "category": "claim",
+      "read": false,
+      "createdAt": "2023-12-15"
+    },
+    {
+      "id": "notif7",
+      "userId": "admin",
+      "message": "Claim cl2 has pending document verification. Repair estimate not verified.",
+      "type": "warning",
+      "category": "admin",
+      "read": true,
+      "createdAt": "2024-04-10"
+    },
+    {
+      "id": "notif8",
+      "userId": "admin",
+      "message": "Claim cl3 requires follow-up. Additional documents requested from customer.",
+      "type": "warning",
+      "category": "admin",
+      "read": true,
+      "createdAt": "2024-03-01"
+    },
+    {
+      "id": "notif9",
+      "userId": "admin",
+      "message": "Policy HealthGuard Basic renewal support needed for customer Rajesh Kumar.",
+      "type": "info",
+      "category": "admin",
+      "read": true,
+      "createdAt": "2024-12-01"
+    },
+    {
+      "id": "notif10",
+      "userId": "u4",
+      "message": "Your HealthGuard Premium policy is due for renewal. Due date: 2024-11-20.",
+      "type": "warning",
+      "category": "payment",
+      "read": false,
+      "createdAt": "2024-11-01"
+    },
+    {
+      "userId": "u1",
+      "message": "Your LifeSecure Whole Life policy has been activated successfully. Coverage: ₹5,000,000.",
+      "type": "success",
+      "category": "purchase",
+      "read": true,
+      "createdAt": "2026-06-14",
+      "id": "IKznzly3vS4"
+    },
+    {
+      "userId": "u1",
+      "message": "Your claim for \"LifeSecure Term Plan\" has been submitted successfully and is under review.",
+      "type": "info",
+      "category": "claim",
+      "read": true,
+      "createdAt": "2026-06-14",
+      "id": "wOGNAP4rMNg"
+    },
+    {
+      "userId": "admin",
+      "message": "New claim submitted by Rajesh Kumar for policy \"LifeSecure Term Plan\". Amount: ₹15,000.",
+      "type": "warning",
+      "category": "admin",
+      "read": false,
+      "createdAt": "2026-06-14",
+      "id": "YcUz3qr40CM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

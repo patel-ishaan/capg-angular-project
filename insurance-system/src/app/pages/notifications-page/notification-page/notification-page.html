@@ -1,24 +1,31 @@
-<div class="admin-dashboard">
 
-  <!-- Notifications Panel -->
-  <div class="notifications-panel">
-    <div class="panel-header">
-      <h2>Admin Alerts</h2>
+<app-navbar />
+
+<div class="notifications-container">
+  <div class="container">
+
+    <div class="page-header">
+      <div>
+        <h1>Notifications</h1>
+        <p>Stay updated on your policies, payments and claims.</p>
+      </div>
       @if (unreadCount() > 0) {
-        <span class="unread-badge">{{ unreadCount() }} unread</span>
+        <button class="btn-mark-all" (click)="markAllAsRead()">
+          Mark all as read ({{ unreadCount() }})
+        </button>
       }
     </div>
 
     @if (loading()) {
       <div class="loading-state">
         <div class="spinner"></div>
-        <p>Loading alerts...</p>
+        <p>Loading notifications...</p>
       </div>
     } @else if (error()) {
       <div class="error-state">{{ error() }}</div>
     } @else if (notifications().length === 0) {
       <div class="empty-state">
-        <p>No admin alerts at the moment.</p>
+        <p>No notifications yet.</p>
       </div>
     } @else {
       <div class="notifications-list">
@@ -46,6 +53,6 @@
         }
       </div>
     }
-  </div>
 
+  </div>
 </div>

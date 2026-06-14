@@ -1,18 +1,18 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { NotificationService } from '../../../services/user/notification.service';
+import { NavbarComponent } from '../../../components/navbar/navbar';
 import { LoginService } from '../../../services/auth/login-service';
+import { NotificationService } from '../../../services/user/notification.service';
 import { Notification } from '../../../models/notification.model';
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'app-notifications-page',
   standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './admin-dashboard.html',
-  styleUrl: './admin-dashboard.css'
+  imports: [RouterLink, NavbarComponent],
+  templateUrl: './notification-page.html',
+  styleUrl: './notification-page.css'
 })
-export class AdminDashboard implements OnInit {
+export class NotificationsPageComponent implements OnInit {
   private notificationService = inject(NotificationService);
   private loginService = inject(LoginService);
 
@@ -21,9 +21,9 @@ export class AdminDashboard implements OnInit {
   error = signal('');
 
   ngOnInit() {
-    const adminId = this.loginService.currentUser()?.id;
-    if (!adminId) return;
-    this.notificationService.getAdminNotifications().subscribe({
+    const userId = this.loginService.currentUser()?.id;
+    if (!userId) return;
+    this.notificationService.getNotificationsByUser(userId).subscribe({
       next: (data) => {
         this.notifications.set(data);
         this.loading.set(false);
@@ -44,8 +44,15 @@ export class AdminDashboard implements OnInit {
     });
   }
 
-  unreadCount() {
-    return this.notifications().filter(n => !n.read).length;
+  markAllAsRead() {
+    const unread = this.notifications().filter(n => !n.read);
+    unread.forEach(n => {
+      this.notificationService.markAsRead(n.id).subscribe(() => {
+        this.notifications.update(list =>
+          list.map(item => item.id === n.id ? { ...item, read: true } : item)
+        );
+      });
+    });
   }
 
   getTypeIcon(type: string): string {
@@ -56,5 +63,9 @@ export class AdminDashboard implements OnInit {
       info: 'ℹ️'
     };
     return icons[type] || 'ℹ️';
+  }
+
+  unreadCount() {
+    return this.notifications().filter(n => !n.read).length;
   }
 }

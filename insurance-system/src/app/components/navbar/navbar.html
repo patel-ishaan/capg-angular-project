@@ -18,6 +18,16 @@
       <a routerLink="/catalog" routerLinkActive="active" (click)="closeMenu()">Policies</a>
       <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
       <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
+
+      @if (loginService.isAuthenticated()) {
+        <a routerLink="/notifications" routerLinkActive="active" (click)="closeMenu()" class="nav-notification">
+          Notifications
+          @if (unreadCount() > 0) {
+            <span class="notif-badge">{{ unreadCount() }}</span>
+          }
+        </a>
+      }
+
       <div class="nav-buttons">
         @if (!loginService.isAuthenticated()) {
           <a class="btn-outline" routerLink="/login" (click)="closeMenu()"> Login </a>
